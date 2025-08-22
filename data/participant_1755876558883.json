@@ -1,0 +1,32 @@
+{
+  "demographic": {
+    "gender": "Female",
+    "age": "20",
+    "education": "Bachelor's degree",
+    "profession": "Tech / Engineering",
+    "visualization": "5"
+  },
+  "responses": [
+    {
+      "chartDisplayIndex": 1,
+      "chartId": 43,
+      "trend": "Uniform",
+      "confidence": 3,
+      "description": "consistent patterns"
+    },
+    {
+      "chartDisplayIndex": 2,
+      "chartId": 4,
+      "trend": "Irregular",
+      "confidence": 2,
+      "description": "inconsistent patterns"
+    },
+    {
+      "chartDisplayIndex": 3,
+      "chartId": 35,
+      "trend": "Upward",
+      "confidence": 4,
+      "description": "increasing"
+    }
+  ]
+}
