@@ -1,0 +1,32 @@
+{
+  "demographic": {
+    "gender": "Female",
+    "age": "19",
+    "education": "Associate degree",
+    "profession": "Tech / Engineering",
+    "visualization": "3"
+  },
+  "responses": [
+    {
+      "chartDisplayIndex": 1,
+      "chartId": 26,
+      "trend": "Irregular",
+      "confidence": 1,
+      "description": "s"
+    },
+    {
+      "chartDisplayIndex": 2,
+      "chartId": 17,
+      "trend": "Irregular",
+      "confidence": 2,
+      "description": "s"
+    },
+    {
+      "chartDisplayIndex": 3,
+      "chartId": 15,
+      "trend": "Irregular",
+      "confidence": 1,
+      "description": "s"
+    }
+  ]
+}
