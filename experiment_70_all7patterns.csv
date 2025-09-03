@@ -1,0 +1,71 @@
+Trial_Number,Message_Framing,Context_Level,Chart_Pattern,Category,Chart_ID,Title
+1,Neutral,Low,Upward,Company,upward_neutral_low_company,Company upward data over time
+2,Positive,High,Upward,Company,upward_positive_high_company,Company upward trend has steadily improved across multiple periods
+3,Negative,Low,Downward,Company,downward_negative_low_company,Company downward trend shows decline
+4,Trend,High,Downward,Company,downward_trend_high_company,Company values are declining in a downward trend over the last two decades
+5,Variable,Low,Peak,Company,peak_variable_low_company,Company reached the highest values
+6,Neutral,High,Peak,Company,peak_neutral_high_company,This chart shows company peak data across years with historical context
+7,Positive,Low,Valley,Company,valley_positive_low_company,Company valley trend shows improvement
+8,Negative,High,Valley,Company,valley_negative_high_company,Company valley trend has steadily declined across multiple periods
+9,Trend,Low,Periodic,Company,periodic_trend_low_company,Company values are fluctuating in an irregular pattern
+10,Variable,High,Periodic,Company,periodic_variable_high_company,Company values lagged behind others in an irregular pattern when compared across regions and years
+11,Neutral,Low,Uniform,Company,uniform_neutral_low_company,Company uniform data over time
+12,Positive,High,Uniform,Company,uniform_positive_high_company,Company uniform trend has steadily improved across multiple periods
+13,Negative,Low,Irregular,Company,irregular_negative_low_company,Company irregular trend shows decline
+14,Trend,High,Irregular,Company,irregular_trend_high_company,Company values are fluctuating in an irregular pattern over the last two decades
+15,Neutral,Low,Upward,Stock,upward_neutral_low_stock,Stock upward data over time
+16,Positive,High,Upward,Stock,upward_positive_high_stock,Stock upward trend has steadily improved across multiple periods
+17,Negative,Low,Downward,Stock,downward_negative_low_stock,Stock downward trend shows decline
+18,Trend,High,Downward,Stock,downward_trend_high_stock,Stock values are declining in a downward trend over the last two decades
+19,Variable,Low,Peak,Stock,peak_variable_low_stock,Stock reached the highest values
+20,Neutral,High,Peak,Stock,peak_neutral_high_stock,This chart shows stock peak data across years with historical context
+21,Positive,Low,Valley,Stock,valley_positive_low_stock,Stock valley trend shows improvement
+22,Negative,High,Valley,Stock,valley_negative_high_stock,Stock valley trend has steadily declined across multiple periods
+23,Trend,Low,Periodic,Stock,periodic_trend_low_stock,Stock values are fluctuating in an irregular pattern
+24,Variable,High,Periodic,Stock,periodic_variable_high_stock,Stock values lagged behind others in an irregular pattern when compared across regions and years
+25,Neutral,Low,Uniform,Stock,uniform_neutral_low_stock,Stock uniform data over time
+26,Positive,High,Uniform,Stock,uniform_positive_high_stock,Stock uniform trend has steadily improved across multiple periods
+27,Negative,Low,Irregular,Stock,irregular_negative_low_stock,Stock irregular trend shows decline
+28,Trend,High,Irregular,Stock,irregular_trend_high_stock,Stock values are fluctuating in an irregular pattern over the last two decades
+29,Neutral,Low,Upward,Weather,upward_neutral_low_weather,Weather upward data over time
+30,Positive,High,Upward,Weather,upward_positive_high_weather,Weather upward trend has steadily improved across multiple periods
+31,Negative,Low,Downward,Weather,downward_negative_low_weather,Weather downward trend shows decline
+32,Trend,High,Downward,Weather,downward_trend_high_weather,Weather values are declining in a downward trend over the last two decades
+33,Variable,Low,Peak,Weather,peak_variable_low_weather,Weather reached the highest values
+34,Neutral,High,Peak,Weather,peak_neutral_high_weather,This chart shows weather peak data across years with historical context
+35,Positive,Low,Valley,Weather,valley_positive_low_weather,Weather valley trend shows improvement
+36,Negative,High,Valley,Weather,valley_negative_high_weather,Weather valley trend has steadily declined across multiple periods
+37,Trend,Low,Periodic,Weather,periodic_trend_low_weather,Weather values are fluctuating in an irregular pattern
+38,Variable,High,Periodic,Weather,periodic_variable_high_weather,Weather values lagged behind others in an irregular pattern when compared across regions and years
+39,Neutral,Low,Uniform,Weather,uniform_neutral_low_weather,Weather uniform data over time
+40,Positive,High,Uniform,Weather,uniform_positive_high_weather,Weather uniform trend has steadily improved across multiple periods
+41,Negative,Low,Irregular,Weather,irregular_negative_low_weather,Weather irregular trend shows decline
+42,Trend,High,Irregular,Weather,irregular_trend_high_weather,Weather values are fluctuating in an irregular pattern over the last two decades
+43,Neutral,Low,Upward,Car,upward_neutral_low_car,Car upward data over time
+44,Positive,High,Upward,Car,upward_positive_high_car,Car upward trend has steadily improved across multiple periods
+45,Negative,Low,Downward,Car,downward_negative_low_car,Car downward trend shows decline
+46,Trend,High,Downward,Car,downward_trend_high_car,Car values are declining in a downward trend over the last two decades
+47,Variable,Low,Peak,Car,peak_variable_low_car,Car reached the highest values
+48,Neutral,High,Peak,Car,peak_neutral_high_car,This chart shows car peak data across years with historical context
+49,Positive,Low,Valley,Car,valley_positive_low_car,Car valley trend shows improvement
+50,Negative,High,Valley,Car,valley_negative_high_car,Car valley trend has steadily declined across multiple periods
+51,Trend,Low,Periodic,Car,periodic_trend_low_car,Car values are fluctuating in an irregular pattern
+52,Variable,High,Periodic,Car,periodic_variable_high_car,Car values lagged behind others in an irregular pattern when compared across regions and years
+53,Neutral,Low,Uniform,Car,uniform_neutral_low_car,Car uniform data over time
+54,Positive,High,Uniform,Car,uniform_positive_high_car,Car uniform trend has steadily improved across multiple periods
+55,Negative,Low,Irregular,Car,irregular_negative_low_car,Car irregular trend shows decline
+56,Trend,High,Irregular,Car,irregular_trend_high_car,Car values are fluctuating in an irregular pattern over the last two decades
+57,Neutral,Low,Upward,Population,upward_neutral_low_population,Population upward data over time
+58,Positive,High,Upward,Population,upward_positive_high_population,Population upward trend has steadily improved across multiple periods
+59,Negative,Low,Downward,Population,downward_negative_low_population,Population downward trend shows decline
+60,Trend,High,Downward,Population,downward_trend_high_population,Population values are declining in a downward trend over the last two decades
+61,Variable,Low,Peak,Population,peak_variable_low_population,Population reached the highest values
+62,Neutral,High,Peak,Population,peak_neutral_high_population,This chart shows population peak data across years with historical context
+63,Positive,Low,Valley,Population,valley_positive_low_population,Population valley trend shows improvement
+64,Negative,High,Valley,Population,valley_negative_high_population,Population valley trend has steadily declined across multiple periods
+65,Trend,Low,Periodic,Population,periodic_trend_low_population,Population values are fluctuating in an irregular pattern
+66,Variable,High,Periodic,Population,periodic_variable_high_population,Population values lagged behind others in an irregular pattern when compared across regions and years
+67,Neutral,Low,Uniform,Population,uniform_neutral_low_population,Population uniform data over time
+68,Positive,High,Uniform,Population,uniform_positive_high_population,Population uniform trend has steadily improved across multiple periods
+69,Negative,Low,Irregular,Population,irregular_negative_low_population,Population irregular trend shows decline
+70,Trend,High,Irregular,Population,irregular_trend_high_population,Population values are fluctuating in an irregular pattern over the last two decades
