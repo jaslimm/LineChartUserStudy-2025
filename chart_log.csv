@@ -1,71 +1,71 @@
 chart_id,pattern,title,y_ticks,data_file
-upward_neutral_low_company,Upward,Company upward data over time,"[0, 50, 100]",1-27_up2.json
+upward_neutral_low_company,Upward,Company upward data over time,"[0, 50, 100]",3-24_up1.json
 upward_positive_high_company,Upward,Company upward trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_up1.json
-downward_negative_low_company,Downward,Company downward trend shows decline,"[0, 50, 100]",2-26_dn2.json
-downward_trend_high_company,Downward,Company values are declining in a downward trend over the last two decades,"[0, 50, 100]",1-27_dn2.json
+downward_negative_low_company,Downward,Company downward trend shows decline,"[0, 50, 100]",2-26_dn3.json
+downward_trend_high_company,Downward,Company values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-26_dn1.json
 peak_variable_low_company,Peak,Company reached the highest values,"[0, 50, 100]",2-26_pk2.json
 peak_neutral_high_company,Peak,This chart shows company peak data across years with historical context,"[0, 50, 100]",2-26_pk2.json
 valley_positive_low_company,Valley,Company valley trend shows improvement,"[0, 50, 100]",2-26_val1.json
 valley_negative_high_company,Valley,Company valley trend has steadily declined across multiple periods,"[0, 50, 100]",2-26_val1.json
-periodic_trend_low_company,Periodic,Company values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni3.json
-periodic_variable_high_company,Periodic,Company values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-12_uni2.json
-uniform_neutral_low_company,Uniform,Company uniform data over time,"[0, 50, 100]",3-23_test.json
-uniform_positive_high_company,Uniform,Company uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-23_test.json
-irregular_negative_low_company,Irregular,Company irregular trend shows decline,"[0, 50, 100]",js_uniformData3.json
-irregular_trend_high_company,Irregular,Company values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",3-5_irr3.json
+periodic_trend_low_company,Periodic,Company values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni5.json
+periodic_variable_high_company,Periodic,Company values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni4_1.json
+uniform_neutral_low_company,Uniform,Company uniform data over time,"[0, 50, 100]",3-24_uni1.json
+uniform_positive_high_company,Uniform,Company uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_uni1.json
+irregular_negative_low_company,Irregular,Company irregular trend shows decline,"[0, 50, 100]",2-26_irr2.json
+irregular_trend_high_company,Irregular,Company values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",2-26_irr3.json
 upward_neutral_low_stock,Upward,Stock upward data over time,"[0, 50, 100]",2-26_up2.json
-upward_positive_high_stock,Upward,Stock upward trend has steadily improved across multiple periods,"[0, 50, 100]",2-26_up2.json
-downward_negative_low_stock,Downward,Stock downward trend shows decline,"[0, 50, 100]",2-26_dn2.json
-downward_trend_high_stock,Downward,Stock values are declining in a downward trend over the last two decades,"[0, 50, 100]",1-27_dn2.json
+upward_positive_high_stock,Upward,Stock upward trend has steadily improved across multiple periods,"[0, 50, 100]",1-27_up2.json
+downward_negative_low_stock,Downward,Stock downward trend shows decline,"[0, 50, 100]",2-26_dn3.json
+downward_trend_high_stock,Downward,Stock values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-26_dn3.json
 peak_variable_low_stock,Peak,Stock reached the highest values,"[0, 50, 100]",2-26_pk2.json
 peak_neutral_high_stock,Peak,This chart shows stock peak data across years with historical context,"[0, 50, 100]",2-26_pk2.json
 valley_positive_low_stock,Valley,Stock valley trend shows improvement,"[0, 50, 100]",2-26_val1.json
 valley_negative_high_stock,Valley,Stock valley trend has steadily declined across multiple periods,"[0, 50, 100]",2-26_val1.json
-periodic_trend_low_stock,Periodic,Stock values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni3.json
-periodic_variable_high_stock,Periodic,Stock values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni3.json
+periodic_trend_low_stock,Periodic,Stock values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni4_1.json
+periodic_variable_high_stock,Periodic,Stock values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni6.json
 uniform_neutral_low_stock,Uniform,Stock uniform data over time,"[0, 50, 100]",3-23_test.json
 uniform_positive_high_stock,Uniform,Stock uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_uni1.json
-irregular_negative_low_stock,Irregular,Stock irregular trend shows decline,"[0, 50, 100]",3-5_irr1.json
-irregular_trend_high_stock,Irregular,Stock values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",js_uniformData3.json
-upward_neutral_low_weather,Upward,Weather upward data over time,"[0, 50, 100]",2-26_up2.json
-upward_positive_high_weather,Upward,Weather upward trend has steadily improved across multiple periods,"[0, 50, 100]",2-26_up2.json
-downward_negative_low_weather,Downward,Weather downward trend shows decline,"[0, 50, 100]",2-12_dn2.json
-downward_trend_high_weather,Downward,Weather values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-12_dn2.json
-peak_variable_low_weather,Peak,Weather reached the highest values,"[0, 50, 100]",2-26_pk2.json
-peak_neutral_high_weather,Peak,This chart shows weather peak data across years with historical context,"[0, 50, 100]",2-26_pk2.json
+irregular_negative_low_stock,Irregular,Stock irregular trend shows decline,"[0, 50, 100]",2-26_irr3.json
+irregular_trend_high_stock,Irregular,Stock values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",2-26_irr5.json
+upward_neutral_low_weather,Upward,Weather upward data over time,"[0, 50, 100]",3-24_up1.json
+upward_positive_high_weather,Upward,Weather upward trend has steadily improved across multiple periods,"[0, 50, 100]",1-27_up2.json
+downward_negative_low_weather,Downward,Weather downward trend shows decline,"[0, 50, 100]",2-26_dn4.json
+downward_trend_high_weather,Downward,Weather values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-26_dn1.json
+peak_variable_low_weather,Peak,Weather reached the highest values,"[0, 50, 100]",2-26_pk3.json
+peak_neutral_high_weather,Peak,This chart shows weather peak data across years with historical context,"[0, 50, 100]",2-26_pk1.json
 valley_positive_low_weather,Valley,Weather valley trend shows improvement,"[0, 50, 100]",2-26_val1.json
 valley_negative_high_weather,Valley,Weather valley trend has steadily declined across multiple periods,"[0, 50, 100]",2-26_val1.json
-periodic_trend_low_weather,Periodic,Weather values are fluctuating in an irregular pattern,"[0, 50, 100]",2-12_uni2.json
-periodic_variable_high_weather,Periodic,Weather values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni3.json
-uniform_neutral_low_weather,Uniform,Weather uniform data over time,"[0, 50, 100]",3-23_test.json
-uniform_positive_high_weather,Uniform,Weather uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_uni1.json
-irregular_negative_low_weather,Irregular,Weather irregular trend shows decline,"[0, 50, 100]",js_uniformData3.json
-irregular_trend_high_weather,Irregular,Weather values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",3-5_irr1.json
-upward_neutral_low_car,Upward,Car upward data over time,"[0, 50, 100]",1-27_up2.json
-upward_positive_high_car,Upward,Car upward trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_up1.json
-downward_negative_low_car,Downward,Car downward trend shows decline,"[0, 50, 100]",1-27_dn2.json
-downward_trend_high_car,Downward,Car values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-12_dn2.json
+periodic_trend_low_weather,Periodic,Weather values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni3.json
+periodic_variable_high_weather,Periodic,Weather values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni5.json
+uniform_neutral_low_weather,Uniform,Weather uniform data over time,"[0, 50, 100]",3-24_uni1.json
+uniform_positive_high_weather,Uniform,Weather uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-23_test.json
+irregular_negative_low_weather,Irregular,Weather irregular trend shows decline,"[0, 50, 100]",2-26_irr5.json
+irregular_trend_high_weather,Irregular,Weather values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",2-26_uni1.json
+upward_neutral_low_car,Upward,Car upward data over time,"[0, 50, 100]",2-26_up2.json
+upward_positive_high_car,Upward,Car upward trend has steadily improved across multiple periods,"[0, 50, 100]",2-26_up2.json
+downward_negative_low_car,Downward,Car downward trend shows decline,"[0, 50, 100]",2-26_dn3.json
+downward_trend_high_car,Downward,Car values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-26_dn1.json
 peak_variable_low_car,Peak,Car reached the highest values,"[0, 50, 100]",2-26_pk2.json
-peak_neutral_high_car,Peak,This chart shows car peak data across years with historical context,"[0, 50, 100]",2-26_pk2.json
+peak_neutral_high_car,Peak,This chart shows car peak data across years with historical context,"[0, 50, 100]",2-26_pk1.json
 valley_positive_low_car,Valley,Car valley trend shows improvement,"[0, 50, 100]",2-26_val1.json
 valley_negative_high_car,Valley,Car valley trend has steadily declined across multiple periods,"[0, 50, 100]",2-26_val1.json
-periodic_trend_low_car,Periodic,Car values are fluctuating in an irregular pattern,"[0, 50, 100]",2-12_uni2.json
-periodic_variable_high_car,Periodic,Car values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni3.json
-uniform_neutral_low_car,Uniform,Car uniform data over time,"[0, 50, 100]",3-24_uni1.json
+periodic_trend_low_car,Periodic,Car values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni3.json
+periodic_variable_high_car,Periodic,Car values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni6.json
+uniform_neutral_low_car,Uniform,Car uniform data over time,"[0, 50, 100]",3-23_test.json
 uniform_positive_high_car,Uniform,Car uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_uni1.json
-irregular_negative_low_car,Irregular,Car irregular trend shows decline,"[0, 50, 100]",3-5_irr3.json
-irregular_trend_high_car,Irregular,Car values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",3-5_irr1.json
-upward_neutral_low_population,Upward,Population upward data over time,"[0, 50, 100]",2-26_up2.json
+irregular_negative_low_car,Irregular,Car irregular trend shows decline,"[0, 50, 100]",2-26_irr1.json
+irregular_trend_high_car,Irregular,Car values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",js_uniformData3.json
+upward_neutral_low_population,Upward,Population upward data over time,"[0, 50, 100]",1-27_up2.json
 upward_positive_high_population,Upward,Population upward trend has steadily improved across multiple periods,"[0, 50, 100]",2-26_up2.json
 downward_negative_low_population,Downward,Population downward trend shows decline,"[0, 50, 100]",2-26_dn2.json
-downward_trend_high_population,Downward,Population values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-26_dn2.json
-peak_variable_low_population,Peak,Population reached the highest values,"[0, 50, 100]",2-26_pk2.json
-peak_neutral_high_population,Peak,This chart shows population peak data across years with historical context,"[0, 50, 100]",2-26_pk2.json
+downward_trend_high_population,Downward,Population values are declining in a downward trend over the last two decades,"[0, 50, 100]",2-12_dn2.json
+peak_variable_low_population,Peak,Population reached the highest values,"[0, 50, 100]",2-26_pk1.json
+peak_neutral_high_population,Peak,This chart shows population peak data across years with historical context,"[0, 50, 100]",2-26_pk3.json
 valley_positive_low_population,Valley,Population valley trend shows improvement,"[0, 50, 100]",2-26_val1.json
 valley_negative_high_population,Valley,Population valley trend has steadily declined across multiple periods,"[0, 50, 100]",2-26_val1.json
-periodic_trend_low_population,Periodic,Population values are fluctuating in an irregular pattern,"[0, 50, 100]",2-12_uni2.json
-periodic_variable_high_population,Periodic,Population values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-12_uni2.json
-uniform_neutral_low_population,Uniform,Population uniform data over time,"[0, 50, 100]",3-24_uni1.json
-uniform_positive_high_population,Uniform,Population uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-23_test.json
+periodic_trend_low_population,Periodic,Population values are fluctuating in an irregular pattern,"[0, 50, 100]",2-26_uni6.json
+periodic_variable_high_population,Periodic,Population values lagged behind others in an irregular pattern when compared across regions and years,"[0, 50, 100]",2-26_uni4_1.json
+uniform_neutral_low_population,Uniform,Population uniform data over time,"[0, 50, 100]",3-23_test.json
+uniform_positive_high_population,Uniform,Population uniform trend has steadily improved across multiple periods,"[0, 50, 100]",3-24_uni1.json
 irregular_negative_low_population,Irregular,Population irregular trend shows decline,"[0, 50, 100]",js_uniformData3.json
-irregular_trend_high_population,Irregular,Population values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",3-5_irr1.json
+irregular_trend_high_population,Irregular,Population values are fluctuating in an irregular pattern over the last two decades,"[0, 50, 100]",js_uniformData3.json
