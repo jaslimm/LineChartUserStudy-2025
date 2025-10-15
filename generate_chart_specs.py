@@ -67,6 +67,7 @@ def generate_chart_specs():
         }
 
     log_rows = []
+    file_cache = {}  # Keeps track of remaining files per pattern
 
     for _, row in df.iterrows():
         chart_id = row["Chart_ID"]
@@ -78,13 +79,18 @@ def generate_chart_specs():
             print(f"⚠️ Pattern folder not found: {pattern_folder}")
             continue
 
-        # Randomly select one data file from the pattern folder
-        data_files = [f for f in os.listdir(pattern_folder) if f.endswith(".json")]
-        if not data_files:
-            print(f"⚠️ No data files in {pattern_folder}")
-            continue
+        # Initialize or refresh file cache for this pattern
+        if pattern not in file_cache or len(file_cache[pattern]) == 0:
+            all_files = [f for f in os.listdir(pattern_folder) if f.endswith(".json")]
+            if not all_files:
+                print(f"⚠️ No data files in {pattern_folder}")
+                continue
+            file_cache[pattern] = all_files.copy()
+            random.shuffle(file_cache[pattern])
 
-        selected_file = random.choice(data_files)
+        # Safely pop a file from the shuffled cache
+        selected_file = file_cache[pattern].pop()
+
         with open(os.path.join(pattern_folder, selected_file)) as f:
             data = json.load(f)
 
@@ -114,6 +120,6 @@ def generate_chart_specs():
 
     print(f"\n📄 Log saved to {CONFIG['log_file']}")
 
-# === OPTIONAL: Run directly ===
+# === Run directly ===
 if __name__ == "__main__":
     generate_chart_specs()
