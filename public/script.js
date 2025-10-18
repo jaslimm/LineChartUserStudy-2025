@@ -7,6 +7,10 @@ const container = document.body;
 let currentStep = 0;
 const steps = [];
 
+// Noise mask timing (in milliseconds)
+const MASK_DURATION_MS = 500; // how long static shows
+const FADE_DURATION_MS = 50; // how long fade-out lasts
+
 // Load participant data
 const participantData = JSON.parse(localStorage.getItem("participantData")) || {
   demographic: {},
@@ -54,6 +58,9 @@ globalTimerContainer.appendChild(globalTimerBar);
 // Insert timer bar between progress bar and question counter
 container.insertBefore(globalTimerContainer, container.children[1]);
 
+const noiseMask = document.createElement("div");
+noiseMask.id = "noise-mask";
+document.body.appendChild(noiseMask);
 
 
 // ==========================
@@ -69,7 +76,6 @@ for (let i = 0; i < TOTAL_CHARTS; i++) {
 
   step.innerHTML = `
     <div class="start-container1">
-      <div class="chart-counter-left">Chart ${displayIndex} of ${TOTAL_CHARTS}</div>
       <div class="study-container">
         <div class="chart-container" id="chart-container-${displayIndex}">
           <img src="images/${chartId}_chart.png" alt="Chart ${chartId}" id="chart-img-${displayIndex}">
@@ -84,18 +90,37 @@ for (let i = 0; i < TOTAL_CHARTS; i++) {
             <label><input type="radio" name="q_${displayIndex}" value="uniform"> Uniform</label><br>
             <label><input type="radio" name="q_${displayIndex}" value="peak"> Peak</label><br>
             <label><input type="radio" name="q_${displayIndex}" value="valley"> Valley</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="Other"> Other:</label>
+            <label><input type="radio" name="q_${displayIndex}" value="Other"> Other</label>
             <input type="text" id="other_${displayIndex}" style="margin-left:20px; padding:4px;" placeholder="Specify if other">
           </div>
         </div>
       </div>
     </div>
-    <br>
     <button class="start-btn" onclick="manualNext()">Next</button>
   `;
   container.appendChild(step);
   steps.push(step);
 }
+
+// Show/hide "Other" input when selected
+document.addEventListener("change", (e) => {
+  // Check if the changed element is one of the radio buttons
+  if (e.target.matches('input[type="radio"]')) {
+    const name = e.target.name; // e.g., q_5
+    const displayIndex = name.split("_")[1];
+    const input = document.getElementById(`other_${displayIndex}`);
+
+    if (!input) return;
+
+    // Show only when "Other" is selected; hide otherwise
+    if (e.target.value === "Other") {
+      input.style.display = "inline-block";
+    } else {
+      input.style.display = "none";
+      input.value = ""; // clear text if switching away
+    }
+  }
+});
 
 // ==========================
 //  Timer + Navigation Logic
@@ -111,15 +136,15 @@ function startTimer() {
 
   timer = setTimeout(() => {
     saveChartResponse("auto"); // save as auto-advanced if time runs out
-    nextStep();
-  }, 5000); // 5 seconds per question
+    showNoiseMaskAndNext();
+  }, 15000); // 15 seconds per question
 }
 
 function animateGlobalTimer() {
   const bar = document.getElementById("global-timer-bar");
   if (!bar) return;
 
-  const totalDuration = 5000; // 5 seconds
+  const totalDuration = 15000; // 15 seconds
   const start = Date.now();
 
   // reset appearance each question
@@ -148,10 +173,46 @@ function stopTimer() {
 }
 
 function manualNext() {
+  const displayIndex = currentStep + 1;
+  const selected = document.querySelector(`input[name="q_${displayIndex}"]:checked`);
+  const nextButton = steps[currentStep].querySelector(".start-btn");
+
+  // If "Other" selected, ensure text box is visible (handled below)
+  const otherInput = document.getElementById(`other_${displayIndex}`);
+
+  if (!selected) {
+    // Shake the Next button instead of the whole question
+    nextButton.classList.add("shake");
+    setTimeout(() => nextButton.classList.remove("shake"), 400);
+    return;
+  }
+
+  // Validate "Other" text field
+  if (selected.value === "Other" && otherInput && otherInput.value.trim() === "") {
+    otherInput.classList.add("shake");
+    setTimeout(() => otherInput.classList.remove("shake"), 400);
+    return;
+  }
+
   stopTimer();
   saveChartResponse("manual");
-  nextStep();
+  showNoiseMaskAndNext();
 }
+
+function showNoiseMaskAndNext() {
+  const mask = document.getElementById("noise-mask");
+  mask.style.display = "block";
+  mask.classList.remove("fade-out");
+
+  setTimeout(() => {
+    mask.classList.add("fade-out");
+    setTimeout(() => {
+      mask.style.display = "none";
+      nextStep();
+    }, FADE_DURATION_MS);
+  }, MASK_DURATION_MS);
+}
+
 
 function nextStep() {
   steps[currentStep].classList.remove('active');
@@ -167,6 +228,24 @@ function nextStep() {
   window.scrollTo(0, 0);
   startTimer(); // restart timer for next question
 }
+
+function submitData() {
+  // Clear timer and show thank-you screen
+  stopTimer();
+  container.innerHTML = `
+    <div class="container">
+      <div class="start-container">
+        <h1 style="font-weight: bold">Thank You!</h1>
+        <p>You have completed all ${TOTAL_CHARTS} charts.</p>
+        <p>Your responses have been saved.</p>
+      </div>
+    </div>
+  `;
+
+  // Optional: clear localStorage if you don't want to keep data
+  // localStorage.removeItem("participantData");
+}
+
 
 // ==========================
 //  Response Handling
@@ -215,7 +294,7 @@ function updateProgress() {
 
   const counter = document.getElementById('question-counter');
   if (counter) {
-    counter.textContent = `Question ${currentStep + 1} of ${TOTAL_STEPS}`;
+    counter.textContent = `Chart ${currentStep + 1} of ${TOTAL_STEPS}`;
   }
 }
 

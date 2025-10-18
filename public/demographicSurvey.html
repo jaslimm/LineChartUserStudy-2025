@@ -2,170 +2,237 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>HHLC User Study - Demographics</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>LineSnap User Study - Demographics</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="start-container">
-            <h1 style="margin-bottom: 10px;">Demographic Information</h1>
-            
-            <div class="rad">
-                <!-- Gender -->
-                <p>What is your gender? <span style="color: red;">*</span></p>
-                <label><input type="radio" name="gender" value="Male" required> Male</label>
-                <label><input type="radio" name="gender" value="Female"> Female</label>
-                <label><input type="radio" name="gender" value="Other"> Other</label>
-                <label><input type="radio" name="gender" value="Prefer not to answer"> Prefer not to answer</label>
-                <br><br>
+  <div class="container">
+    <div class="start-container">
+      <h1 style="margin-bottom: 25px; font-weight: bold;">Demographic Information</h1>
 
-                <!-- Age -->
-                <p>What is your age? <span style="color: red;">*</span></p>
-                <select id="age-dropdown" required>
-                    <option value="">Choose...</option>
-                </select>
-                <br><br>
+      <div class="rad" style="line-height: 1.6;">
 
-                <!-- Education -->
-                <p>What is the highest level of education you have completed? <span style="color: red;">*</span></p>
-                <label><input type="radio" name="education" value="High school diploma or equivalent" required> High school diploma or equivalent</label>
-                <label><input type="radio" name="education" value="Associate degree"> Associate degree</label>
-                <label><input type="radio" name="education" value="Bachelor's degree"> Bachelor's degree</label>
-                <label><input type="radio" name="education" value="Master's degree"> Master's degree</label>
-                <label><input type="radio" name="education" value="Doctoral degree or higher"> Doctoral degree or higher</label>
-                <br><br>
+        <!-- Age -->
+        <p>What is your age? <span style="color: red;">*</span></p>
+        <select id="age-dropdown" required style="margin-bottom: 20px;">
+          <option value="">Choose...</option>
+        </select>
 
-                <!-- Profession -->
-                <p>What is your current profession? <span style="color: red;">*</span></p>
-                <select id="profession-dropdown" name="profession" required>
-                    <option value="">Choose...</option>
-                    <option value="Student">Student</option>
-                    <option value="Academic / Research">Academic / Research</option>
-                    <option value="Tech / Engineering">Tech / Engineering</option>
-                    <option value="Business / Management">Business / Management</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to answer">Prefer not to answer</option>
-                </select>
+        <!-- Profession -->
+        <p>What is your current profession? <span style="color: red;">*</span></p>
+        <input type="text" id="profession-input" name="profession" required maxlength="100"
+          style="padding: 8px; margin-bottom: 10px; width: 320px;" placeholder="Enter your profession">
 
-                <!-- Other Profession -->
-                <div id="other-profession-container" style="display: none; margin-top: 10px;">
-                    <label for="other-profession">Please specify:</label><br>
-                    <input style="padding: 5px;" type="text" id="other-profession" name="other-profession"
-                        placeholder="Enter your profession">
-                </div>
-                <br><br>
+        <!-- Domain/Field of Study -->
+        <p>What is your domain or field of study? <span style="color: red;">*</span></p>
+        <input type="text" id="domain-input" name="domain" required maxlength="100"
+          style="padding: 8px; margin-bottom: 16px; width: 320px;" placeholder="Enter your work domain or field">
 
-                <!-- Visualization Familiarity -->
-                <p>How familiar are you with visualizations? (1 = Not familiar at all, 10 = Extremely familiar) <span style="color: red;">*</span></p>
-                <div>
-                    <label><input type="radio" name="visualization" value="1" required> 1</label>
-                    <label><input type="radio" name="visualization" value="2"> 2</label>
-                    <label><input type="radio" name="visualization" value="3"> 3</label>
-                    <label><input type="radio" name="visualization" value="4"> 4</label>
-                    <label><input type="radio" name="visualization" value="5"> 5</label>
-                    <label><input type="radio" name="visualization" value="6"> 6</label>
-                    <label><input type="radio" name="visualization" value="7"> 7</label>
-                    <label><input type="radio" name="visualization" value="8"> 8</label>
-                    <label><input type="radio" name="visualization" value="9"> 9</label>
-                    <label><input type="radio" name="visualization" value="10"> 10</label>
-                </div>
-                <br>
-            </div>
-
-            <!-- Next Button -->
-            <button class="start-btn">Next</button>
+        <!-- Education -->
+        <p>What is the highest level of education you have completed? <span style="color: red;">*</span></p>
+        <div class="checkbox-options" style="margin-bottom: 25px;">
+          <label><input type="radio" name="education" value="No formal education" required> No formal education</label>
+          <label><input type="radio" name="education"
+              value="High school or below (Grades 9–12 without a diploma; High school graduate or equivalent)">
+            High school or below</label>
+          <label><input type="radio" name="education"
+              value="College / Undergraduate (Some college; Associate’s degree; Bachelor’s degree)">
+            College / Undergraduate</label>
+          <label><input type="radio" name="education"
+              value="Master’s Degree (MA, MS, MEng, MSW, etc.)"> Master’s Degree</label>
+          <label><input type="radio" name="education"
+              value="Professional or Doctoral Degree (MD, JD, PhD, etc.)"> Professional or Doctoral Degree</label>
         </div>
+
+        <!-- Data Visualization Background -->
+        <p>How would you describe your background or experience with data visualizations? <span
+            style="color: red;">*</span></p>
+        <div class="radio-options" style="margin-bottom: 25px;">
+          <label><input type="radio" name="data-viz-background" value="no-exposure" required> No formal exposure</label>
+          <label><input type="radio" name="data-viz-background" value="moderate-exposure"> Moderate exposure</label>
+          <label><input type="radio" name="data-viz-background" value="basic-training"> Trained in basic data
+            visualization</label>
+          <label><input type="radio" name="data-viz-background" value="frequent-user"> Frequent user of visual
+            data</label>
+          <label><input type="radio" name="data-viz-background" value="expert"> Expert / Professional visualization
+            designer</label>
+        </div>
+
+        <!-- Media Visualization Exposure -->
+        <p>How often do you encounter data visualizations (charts, graphs, maps) in media sources?
+          <span style="color: red;">*</span>
+        </p>
+        <div class="radio-options" style="margin-bottom: 25px;">
+          <label><input type="radio" name="mediaVisualizationExposure" value="Never" required> Never</label>
+          <label><input type="radio" name="mediaVisualizationExposure" value="Few times a month"> Few times a
+            month</label>
+          <label><input type="radio" name="mediaVisualizationExposure" value="Once a week"> About once a week</label>
+          <label><input type="radio" name="mediaVisualizationExposure" value="Once a day"> About once a day</label>
+          <label><input type="radio" name="mediaVisualizationExposure" value="Multiple times a day"> Multiple times a
+            day</label>
+        </div>
+
+        <!-- Helpfulness of Media Visualizations -->
+        <p>When reading media sources, how helpful do you find visualizations? (1 = Not helpful, 5 = Very helpful)
+          <span style="color: red;">*</span>
+        </p>
+        <div class="familiarity-slider-container" style="max-width:360px; margin-bottom:20px;">
+          <div class="slider-group">
+            <input type="range" id="mediaVisualizationHelpfulness" name="mediaVisualizationHelpfulness" min="1" max="5"
+              value="3" class="familiarity-slider" required
+              oninput="updateSliderValue('mediaVisualizationHelpfulness', this.value)">
+            <span class="slider-value" id="mediaVisualizationHelpfulness-value">3</span>
+          </div>
+          <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          </div>
+        </div>
+
+        <!-- Chart Familiarity -->
+        <p>Please rate your familiarity with each type of visualization (1 = Not familiar, 5 = Extremely familiar):</p>
+
+        <div class="chart-familiarity">
+        <p><strong>Bar Charts</strong> <span style="color: red;">*</span></p>
+        <div class="familiarity-slider-container">
+            <div class="slider-group">
+            <input type="range" id="barCharts" name="barCharts" min="1" max="5" value="3"
+                class="familiarity-slider"
+                oninput="updateSliderValue('barCharts', this.value)">
+            <span class="slider-value" id="barCharts-value">3</span>
+            </div>
+            <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+        </div>
+
+        <div class="chart-familiarity">
+        <p><strong>Line Charts</strong> <span style="color: red;">*</span></p>
+        <div class="familiarity-slider-container">
+            <div class="slider-group">
+            <input type="range" id="lineCharts" name="lineCharts" min="1" max="5" value="3"
+                class="familiarity-slider"
+                oninput="updateSliderValue('lineCharts', this.value)">
+            <span class="slider-value" id="lineCharts-value">3</span>
+            </div>
+            <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+        </div>
+
+        <div class="chart-familiarity">
+        <p><strong>Scatterplots</strong> <span style="color: red;">*</span></p>
+        <div class="familiarity-slider-container">
+            <div class="slider-group">
+            <input type="range" id="scatterplots" name="scatterplots" min="1" max="5" value="3"
+                class="familiarity-slider"
+                oninput="updateSliderValue('scatterplots', this.value)">
+            <span class="slider-value" id="scatterplots-value">3</span>
+            </div>
+            <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+        </div>
+
+        <div class="chart-familiarity">
+        <p><strong>Geographical Maps</strong> <span style="color: red;">*</span></p>
+        <div class="familiarity-slider-container">
+            <div class="slider-group">
+            <input type="range" id="geographicalMaps" name="geographicalMaps" min="1" max="5" value="3"
+                class="familiarity-slider"
+                oninput="updateSliderValue('geographicalMaps', this.value)">
+            <span class="slider-value" id="geographicalMaps-value">3</span>
+            </div>
+            <div class="slider-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+        </div>
+
+
+      </div>
+
+      <button class="start-btn">Continue to Instructions</button>
     </div>
+  </div>
 
-    <script>
-        // Populate age dropdown
-        const ageDropdown = document.getElementById("age-dropdown");
-        for (let age = 18; age <= 65; age++) {
-            const option = document.createElement("option");
-            option.value = age;
-            option.textContent = age;
-            ageDropdown.appendChild(option);
+  <script>
+    // Populate age dropdown
+    const ageDropdown = document.getElementById("age-dropdown");
+    for (let age = 18; age <= 80; age++) {
+      const option = document.createElement("option");
+      option.value = age;
+      option.textContent = age;
+      ageDropdown.appendChild(option);
+    }
+
+    // Update slider labels dynamically
+    function updateSliderValue(sliderId, value) {
+      const valueElement = document.getElementById(sliderId + "-value");
+      if (valueElement) valueElement.textContent = value;
+    }
+
+    // Save to localStorage
+    document.querySelector(".start-btn").addEventListener("click", function (e) {
+      e.preventDefault();
+
+      const requiredFields = [
+        document.getElementById("age-dropdown"),
+        document.querySelector('input[name="education"]:checked'),
+        document.getElementById("profession-input"),
+        document.getElementById("domain-input"),
+        document.querySelector('input[name="data-viz-background"]:checked'),
+        document.querySelector('input[name="mediaVisualizationExposure"]:checked'),
+      ];
+
+      let valid = true;
+      let firstInvalid = null;
+
+      requiredFields.forEach(f => {
+        if (!f || (f.tagName === "SELECT" && f.value === "") || (f.tagName === "INPUT" && f.value.trim() === "")) {
+          valid = false;
+          f.classList.add("shake");
+          setTimeout(() => f.classList.remove("shake"), 400);
+          if (!firstInvalid) firstInvalid = f;
         }
+      });
 
-        // Show/hide "Other" profession field
-        const professionDropdown = document.getElementById('profession-dropdown');
-        const otherContainer = document.getElementById('other-profession-container');
-        const otherInput = document.getElementById('other-profession');
+      if (!valid) {
+        alert("Please fill in all required fields (marked with *)");
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
 
-        professionDropdown.addEventListener('change', function () {
-            if (this.value === 'Other') {
-                otherContainer.style.display = 'block';
-            } else {
-                otherContainer.style.display = 'none';
-                otherInput.value = '';
-                otherInput.classList.remove("shake");
-            }
-        });
+      // Collect all data
+      const demographicData = {
+        age: ageDropdown.value,
+        profession: document.getElementById("profession-input").value.trim(),
+        domainFieldOfStudy: document.getElementById("domain-input").value.trim(),
+        education: document.querySelector('input[name="education"]:checked').value,
+        dataVizBackground: document.querySelector('input[name="data-viz-background"]:checked').value,
+        mediaVisualizationExposure: document.querySelector('input[name="mediaVisualizationExposure"]:checked').value,
+        mediaVisualizationHelpfulness: document.getElementById("mediaVisualizationHelpfulness").value,
+        chartFamiliarity: {
+          barCharts: document.getElementById("barCharts").value,
+          lineCharts: document.getElementById("lineCharts").value,
+          scatterplots: document.getElementById("scatterplots").value,
+          geographicalMaps: document.getElementById("geographicalMaps").value
+        }
+      };
 
-        // Form validation and shake on error
-        document.querySelector(".start-btn").addEventListener("click", function (e) {
-            e.preventDefault(); // prevent default button behavior
+      // Save to localStorage
+      localStorage.setItem("participantData", JSON.stringify({
+        demographic: demographicData,
+        responses: []
+      }));
 
-            const requiredFields = [
-                document.querySelector('input[name="gender"]:checked'),
-                document.getElementById("age-dropdown"),
-                document.querySelector('input[name="education"]:checked'),
-                document.getElementById("profession-dropdown"),
-                document.querySelector('input[name="visualization"]:checked')
-            ];
-
-
-            let valid = true;
-            let firstInvalidField = null;
-
-            requiredFields.forEach(field => {
-                if (field === null || (field.tagName === 'SELECT' && field.value === '')) {
-                    valid = false;
-                    if (field && field.classList) {
-                        field.classList.add("shake");
-                        setTimeout(() => field.classList.remove("shake"), 400);
-                        if (!firstInvalidField) firstInvalidField = field;
-                    }
-                }
-            });
-
-            if (professionDropdown.value === "Other" && otherInput.value.trim() === "") {
-                valid = false;
-                otherInput.classList.add("shake");
-                setTimeout(() => otherInput.classList.remove("shake"), 400);
-                if (!firstInvalidField) firstInvalidField = otherInput;
-            }
-
-            if (!valid) {
-                alert("Please fill in all required fields (marked with *)");
-                if (firstInvalidField) firstInvalidField.focus();
-                return;
-            }
-
-            // Build the demographic object
-            const demographicData = {
-                gender: document.querySelector('input[name="gender"]:checked').value,
-                age: document.getElementById("age-dropdown").value,
-                education: document.querySelector('input[name="education"]:checked').value,
-                profession: professionDropdown.value === "Other" ? otherInput.value.trim() : professionDropdown.value,
-                visualization: document.querySelector('input[name="visualization"]:checked').value
-            };
-
-
-            // Save to localStorage
-            localStorage.setItem("participantData", JSON.stringify({
-                demographic: demographicData,
-                responses: [] // we'll fill this later in study.html
-            }));
-
-            // Redirect to instructions or study
-            window.location.href = 'instructions.html';
-        });
-    </script>
+      window.location.href = "instructions.html";
+    });
+  </script>
 </body>
-
 </html>
