@@ -1,0 +1,42 @@
+{
+  "demographic": {
+    "age": "22",
+    "profession": "Teacher",
+    "domainFieldOfStudy": "Education",
+    "education": "High school or below (Grades 9–12 without a diploma; High school graduate or equivalent)",
+    "dataVizBackground": "frequent-user",
+    "mediaVisualizationExposure": "Multiple times a day",
+    "mediaVisualizationHelpfulness": "3",
+    "chartFamiliarity": {
+      "barCharts": "3",
+      "lineCharts": "3",
+      "scatterplots": "3",
+      "geographicalMaps": "3"
+    }
+  },
+  "responses": [
+    {
+      "displayIndex": 1,
+      "chartId": 2,
+      "choice": "peak",
+      "other": "",
+      "timestamp": "2025-10-19T01:17:58.542Z",
+      "responseTimeMs": 1971,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 2,
+      "chartId": 1,
+      "choice": "uniform",
+      "other": "",
+      "timestamp": "2025-10-19T01:18:00.238Z",
+      "responseTimeMs": 1141,
+      "method": "manual"
+    }
+  ],
+  "chartOrder": [
+    2,
+    1
+  ],
+  "completedAt": "2025-10-19T01:18:00.798Z"
+}

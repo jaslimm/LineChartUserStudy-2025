@@ -230,46 +230,47 @@ function nextStep() {
 }
 
 function submitData() {
-  // Collect participant data from localStorage
-  const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
+  stopTimer();
 
-  // Add timestamp for good measure
+  // Load participant data from localStorage
+  const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
   participantData.completedAt = new Date().toISOString();
 
-  console.log("Submitting data:", participantData);
+  // Determine endpoint based on environment
+  const endpoint =
+    window.location.hostname === "localhost"
+      ? "/submit"        // Local Express server
+      : "/api/submit";   // Vercel serverless function
 
-  // Send to backend
-  fetch("/api/submit", {
+  console.log("📤 Sending data to:", endpoint);
+  console.log("Data:", participantData);
+
+  fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(participantData)
   })
-  .then((res) => res.json())
-  .then((data) => {
-    console.log("Server response:", data);
-    if (data.success) {
-      // Show thank-you message
-      container.innerHTML = `
-        <div class="container">
-          <div class="start-container">
-            <h1>Thank You!</h1>
-            <p>Your responses have been saved successfully.</p>
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("✅ Server response:", data);
+      if (data.success) {
+        container.innerHTML = `
+          <div class="container">
+            <div class="start-container">
+              <h1>Thank You!</h1>
+              <p>Your responses have been submitted successfully.</p>
+            </div>
           </div>
-        </div>
-      `;
-
-      // Optional: clear stored data
-      localStorage.removeItem("participantData");
-    } else {
-      alert("There was a problem saving your data. Please try again.");
-    }
-  })
-  .catch((error) => {
-    console.error("Error submitting data:", error);
-    alert("Network error. Please try again.");
-  });
+        `;
+        localStorage.removeItem("participantData");
+      } else {
+        alert("Error submitting data. Please try again.");
+      }
+    })
+    .catch((err) => {
+      console.error("❌ Network error:", err);
+      alert("Network error. Please try again.");
+    });
 }
 
 
