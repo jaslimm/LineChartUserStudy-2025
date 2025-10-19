@@ -8,6 +8,7 @@
     "vercel": "vercel dev"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "googleapis": "^164.0.0"
   }
 }
