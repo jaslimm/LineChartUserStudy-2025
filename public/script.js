@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 50;
+const TOTAL_CHARTS = 2;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
@@ -230,20 +230,46 @@ function nextStep() {
 }
 
 function submitData() {
-  // Clear timer and show thank-you screen
-  stopTimer();
-  container.innerHTML = `
-    <div class="container">
-      <div class="start-container">
-        <h1 style="font-weight: bold">Thank You!</h1>
-        <p>You have completed all ${TOTAL_CHARTS} charts.</p>
-        <p>Your responses have been saved.</p>
-      </div>
-    </div>
-  `;
+  // Collect participant data from localStorage
+  const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
 
-  // Optional: clear localStorage if you don't want to keep data
-  // localStorage.removeItem("participantData");
+  // Add timestamp for good measure
+  participantData.completedAt = new Date().toISOString();
+
+  console.log("Submitting data:", participantData);
+
+  // Send to backend
+  fetch("/api/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(participantData)
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("Server response:", data);
+    if (data.success) {
+      // Show thank-you message
+      container.innerHTML = `
+        <div class="container">
+          <div class="start-container">
+            <h1>Thank You!</h1>
+            <p>Your responses have been saved successfully.</p>
+          </div>
+        </div>
+      `;
+
+      // Optional: clear stored data
+      localStorage.removeItem("participantData");
+    } else {
+      alert("There was a problem saving your data. Please try again.");
+    }
+  })
+  .catch((error) => {
+    console.error("Error submitting data:", error);
+    alert("Network error. Please try again.");
+  });
 }
 
 
@@ -261,21 +287,27 @@ function saveChartResponse(method = "auto") {
   const endTime = Date.now();
   const responseTimeMs = questionStartTime ? endTime - questionStartTime : null;
 
+  // ✅ NEW LOGIC:
+  // If time runs out ("auto"), but a selection was already made,
+  // still record the selected option.
+  method = method === "auto" && selected ? "auto_with_selection" : method;
+  let choice;
+  let other = "";
+
+  if (selected) {
+    choice = selected.value;
+    if (selected.value === "Other") {
+      other = otherText || "";
+    }
+  } else {
+    choice = method === "auto" ? "Not answered (auto)" : "Not answered";
+  }
+
   const response = {
     displayIndex,
     chartId,
-    choice:
-      method === "auto"
-        ? "Not answered (auto)"
-        : selected
-        ? selected.value
-        : "Not answered",
-    other:
-      method === "auto"
-        ? ""
-        : selected?.value === "Other"
-        ? otherText
-        : "",
+    choice,
+    other,
     timestamp: new Date().toISOString(),
     responseTimeMs,
     method // "manual" or "auto"

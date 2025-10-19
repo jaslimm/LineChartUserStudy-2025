@@ -7,3 +7,8 @@
 - look at the public/ folder and server.js
 - replace pictures in public/images/ folder for them to show up
 - all the other stuff relates to my own project
+
+# run server.js for local testing
+npm run dev
+# vercel version api/submit.js
+npm run vercel
