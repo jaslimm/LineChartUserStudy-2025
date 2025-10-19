@@ -226,7 +226,10 @@
       };
 
       // Save to localStorage
+      const participantId = `participant_${Date.now()}`;
+
       localStorage.setItem("participantData", JSON.stringify({
+        participantId,
         demographic: demographicData,
         responses: []
       }));

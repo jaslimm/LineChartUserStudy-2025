@@ -234,6 +234,7 @@ function submitData() {
 
   // Load participant data from localStorage
   const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
+  participantData.participantId = participantData.participantId || `participant_${Date.now()}`;
   participantData.completedAt = new Date().toISOString();
 
   // Determine endpoint based on environment

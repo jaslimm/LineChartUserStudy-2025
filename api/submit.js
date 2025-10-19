@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     // flatten demographic + responses into a single row string for simplicity
     const row = [
       new Date().toISOString(),
-      data.sessionId || "",
-      JSON.stringify(data.selectedCharts || []),
+      data.participantId || "",
+      JSON.stringify(data.chartOrder || []),
       JSON.stringify(data.responses || []),
       data.demographic ? JSON.stringify(data.demographic) : ""
     ];
