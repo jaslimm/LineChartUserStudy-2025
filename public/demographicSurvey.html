@@ -120,7 +120,6 @@
   </div>
 
   <script>
-
     // Update slider labels dynamically
     function updateSliderValue(sliderId, value) {
       const valueElement = document.getElementById(sliderId + "-value");
@@ -131,8 +130,10 @@
     document.querySelector(".start-btn").addEventListener("click", function (e) {
       e.preventDefault();
 
+      // Corrected required field list
       const requiredFields = [
-        document.getElementById("age-dropdown"),
+        document.getElementById("age-input"),
+        document.querySelector('input[name="colorBlindness"]:checked'),
         document.querySelector('input[name="education"]:checked'),
         document.getElementById("profession-input"),
         document.getElementById("domain-input"),
@@ -146,9 +147,11 @@
       requiredFields.forEach(f => {
         if (!f || (f.tagName === "SELECT" && f.value === "") || (f.tagName === "INPUT" && f.value.trim() === "")) {
           valid = false;
-          f.classList.add("shake");
-          setTimeout(() => f.classList.remove("shake"), 400);
-          if (!firstInvalid) firstInvalid = f;
+          if (f) {
+            f.classList.add("shake");
+            setTimeout(() => f.classList.remove("shake"), 400);
+            if (!firstInvalid) firstInvalid = f;
+          }
         }
       });
 
@@ -172,7 +175,6 @@
         setTimeout(() => colorOptions.forEach(opt => opt.classList.remove("shake")), 400);
         return;
       }
-
 
       if (!valid) {
         alert("Please fill in all required fields (marked with *)");
@@ -202,6 +204,7 @@
         responses: []
       }));
 
+      // ✅ Redirect to instructions page
       window.location.href = "instructions.html";
     });
   </script>
