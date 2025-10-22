@@ -465,8 +465,8 @@ p {
 /* Chart familiarity section styles */
 .chart-familiarity {
   margin-bottom: 8px;
-  border-left: 3px solid #007cba;
-  padding-left: 10px;
+  /* border-left: 3px solid #007cba; */
+  /* padding-left: 10px; */
 }
 
 .chart-familiarity p {
