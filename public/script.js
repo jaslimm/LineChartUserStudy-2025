@@ -1,11 +1,28 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 20;
+const TOTAL_CHARTS = 10;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
 const steps = [];
+// ==========================
+//  Attention Check Settings
+// ==========================
+const ATTENTION_CHECKS = [
+  {
+    id: "attn1",
+    position: 3, 
+    question: "Is this visualization a bar chart?",
+    image: "attn1.png"
+  },
+  {
+    id: "attn2",
+    position: 7,
+    question: "Attention check: Please select 'No' for this question.",
+    image: "attn2.png"
+  }
+];
 
 // Noise mask timing (in milliseconds)
 const MASK_DURATION_MS = 500; // how long static shows
@@ -70,9 +87,11 @@ for (let i = 0; i < TOTAL_CHARTS; i++) {
   const chartId = chartOrder[i];
   const displayIndex = i + 1;
 
+  // Create and append chart step
   const step = document.createElement('section');
   step.classList.add('step');
   if (i === 0) step.classList.add('active');
+  step.dataset.attention = "false"; // default
 
   step.innerHTML = `
     <div class="start-container1">
@@ -100,6 +119,28 @@ for (let i = 0; i < TOTAL_CHARTS; i++) {
   `;
   container.appendChild(step);
   steps.push(step);
+  // ✅ Check if an attention check should follow this chart
+  const attn = ATTENTION_CHECKS.find(a => a.position === displayIndex);
+  if (attn) {
+    const attnStep = document.createElement('section');
+    attnStep.classList.add('step');
+    attnStep.dataset.attention = "true";
+    attnStep.innerHTML = `
+      <div class="study-container">
+        <div class="chart-container">
+          <img src="${attn.image}" alt="Attention Check">
+        </div>
+        <div class="study-question">
+          <p><strong>${attn.question}</strong></p>
+          <label><input type="radio" name="q_attn_${attn.id}" value="Yes"> Yes</label><br>
+          <label><input type="radio" name="q_attn_${attn.id}" value="No"> No</label><br>
+        </div>
+      </div>
+      <button class="start-btn" onclick="manualNext()">Next</button>
+    `;
+    steps.push(attnStep);
+    container.appendChild(attnStep);
+  }
 }
 
 // Show/hide "Other" input when selected
@@ -174,20 +215,19 @@ function stopTimer() {
 
 function manualNext() {
   const displayIndex = currentStep + 1;
-  const selected = document.querySelector(`input[name="q_${displayIndex}"]:checked`);
-  const nextButton = steps[currentStep].querySelector(".start-btn");
+  const currentStepEl = steps[currentStep];
+  const nextButton = currentStepEl.querySelector(".start-btn");
 
-  // If "Other" selected, ensure text box is visible (handled below)
-  const otherInput = document.getElementById(`other_${displayIndex}`);
+  // Look for any checked radio input inside this step
+  const selected = currentStepEl.querySelector('input[type="radio"]:checked');
+  const otherInput = currentStepEl.querySelector('input[type="text"]');
 
   if (!selected) {
-    // Shake the Next button instead of the whole question
     nextButton.classList.add("shake");
     setTimeout(() => nextButton.classList.remove("shake"), 400);
     return;
   }
 
-  // Validate "Other" text field
   if (selected.value === "Other" && otherInput && otherInput.value.trim() === "") {
     otherInput.classList.add("shake");
     setTimeout(() => otherInput.classList.remove("shake"), 400);
@@ -326,9 +366,16 @@ function updateProgress() {
   const progressPercent = ((currentStep + 1) / steps.length) * 100;
   progressBar.style.width = progressPercent + '%';
 
+  const completedRealCharts = steps
+    .slice(0, currentStep + 1)
+    .filter(s => s.dataset.attention !== "true").length;
+
+  const totalRealCharts = TOTAL_CHARTS;
+
+
   const counter = document.getElementById('question-counter');
   if (counter) {
-    counter.textContent = `Chart ${currentStep + 1} of ${TOTAL_STEPS}`;
+    counter.textContent = `Chart ${Math.min(completedRealCharts, totalRealCharts)} of ${totalRealCharts}`;
   }
 }
 

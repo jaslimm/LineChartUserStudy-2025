@@ -295,6 +295,13 @@ p {
     
   }
 
+  .start-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
   .start-container1 {
     /* background-color: #eee; */
     border-radius: 20px;

@@ -17,9 +17,15 @@
 
         <!-- Age -->
         <p>What is your age? <span style="color: red;">*</span></p>
-        <select id="age-dropdown" required style="margin-bottom: 20px;">
-          <option value="">Choose...</option>
-        </select>
+        <input type="text" id="age-input" name="age" placeholder="Enter age" maxlength="2" required
+          style="padding: 8px; margin-bottom: 20px; width: 100px; border: 2px solid #ddd; border-radius: 6px;">
+
+        <!-- Color Blindness -->
+        <p>Do you have any form of color blindness? <span style="color: red;">*</span></p>
+        <div class="radio-options" style="margin-bottom: 25px;">
+          <label><input type="radio" name="colorBlindness" value="Yes" required> Yes</label>
+          <label><input type="radio" name="colorBlindness" value="No"> No</label>
+        </div>
 
         <!-- Profession -->
         <p>What is your current profession? <span style="color: red;">*</span></p>
@@ -41,10 +47,10 @@
           <label><input type="radio" name="education"
               value="College / Undergraduate (Some college; Associate’s degree; Bachelor’s degree)">
             College / Undergraduate</label>
-          <label><input type="radio" name="education"
-              value="Master’s Degree (MA, MS, MEng, MSW, etc.)"> Master’s Degree</label>
-          <label><input type="radio" name="education"
-              value="Professional or Doctoral Degree (MD, JD, PhD, etc.)"> Professional or Doctoral Degree</label>
+          <label><input type="radio" name="education" value="Master’s Degree (MA, MS, MEng, MSW, etc.)"> Master’s
+            Degree</label>
+          <label><input type="radio" name="education" value="Professional or Doctoral Degree (MD, JD, PhD, etc.)">
+            Professional or Doctoral Degree</label>
         </div>
 
         <!-- Data Visualization Background -->
@@ -92,69 +98,21 @@
         </div>
 
         <!-- Chart Familiarity -->
-        <p>Please rate your familiarity with each type of visualization (1 = Not familiar, 5 = Extremely familiar):</p>
+        <p>Please rate your familiarity with line charts (1 = Not familiar, 5 = Extremely familiar):</p>
 
         <div class="chart-familiarity">
-        <p><strong>Bar Charts</strong> <span style="color: red;">*</span></p>
-        <div class="familiarity-slider-container">
+          <p><strong>Line Charts</strong> <span style="color: red;">*</span></p>
+          <div class="familiarity-slider-container">
             <div class="slider-group">
-            <input type="range" id="barCharts" name="barCharts" min="1" max="5" value="3"
-                class="familiarity-slider"
-                oninput="updateSliderValue('barCharts', this.value)">
-            <span class="slider-value" id="barCharts-value">3</span>
-            </div>
-            <div class="slider-labels">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-        </div>
-        </div>
-
-        <div class="chart-familiarity">
-        <p><strong>Line Charts</strong> <span style="color: red;">*</span></p>
-        <div class="familiarity-slider-container">
-            <div class="slider-group">
-            <input type="range" id="lineCharts" name="lineCharts" min="1" max="5" value="3"
-                class="familiarity-slider"
+              <input type="range" id="lineCharts" name="lineCharts" min="1" max="5" value="3" class="familiarity-slider"
                 oninput="updateSliderValue('lineCharts', this.value)">
-            <span class="slider-value" id="lineCharts-value">3</span>
+              <span class="slider-value" id="lineCharts-value">3</span>
             </div>
             <div class="slider-labels">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
             </div>
+          </div>
         </div>
-        </div>
-
-        <div class="chart-familiarity">
-        <p><strong>Scatterplots</strong> <span style="color: red;">*</span></p>
-        <div class="familiarity-slider-container">
-            <div class="slider-group">
-            <input type="range" id="scatterplots" name="scatterplots" min="1" max="5" value="3"
-                class="familiarity-slider"
-                oninput="updateSliderValue('scatterplots', this.value)">
-            <span class="slider-value" id="scatterplots-value">3</span>
-            </div>
-            <div class="slider-labels">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-        </div>
-        </div>
-
-        <div class="chart-familiarity">
-        <p><strong>Geographical Maps</strong> <span style="color: red;">*</span></p>
-        <div class="familiarity-slider-container">
-            <div class="slider-group">
-            <input type="range" id="geographicalMaps" name="geographicalMaps" min="1" max="5" value="3"
-                class="familiarity-slider"
-                oninput="updateSliderValue('geographicalMaps', this.value)">
-            <span class="slider-value" id="geographicalMaps-value">3</span>
-            </div>
-            <div class="slider-labels">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-            </div>
-        </div>
-        </div>
-
-
       </div>
 
       <button class="start-btn">Continue to Instructions</button>
@@ -162,14 +120,6 @@
   </div>
 
   <script>
-    // Populate age dropdown
-    const ageDropdown = document.getElementById("age-dropdown");
-    for (let age = 18; age <= 80; age++) {
-      const option = document.createElement("option");
-      option.value = age;
-      option.textContent = age;
-      ageDropdown.appendChild(option);
-    }
 
     // Update slider labels dynamically
     function updateSliderValue(sliderId, value) {
@@ -202,6 +152,28 @@
         }
       });
 
+      // Validate age input
+      const ageInput = document.getElementById("age-input");
+      const ageValue = parseInt(ageInput.value.trim(), 10);
+      if (isNaN(ageValue) || ageValue < 18 || ageValue > 65) {
+        alert("Please enter a valid age between 18 and 65.");
+        ageInput.classList.add("shake");
+        setTimeout(() => ageInput.classList.remove("shake"), 400);
+        ageInput.focus();
+        return;
+      }
+
+      // Validate color blindness selection
+      const colorBlindnessSelected = document.querySelector('input[name="colorBlindness"]:checked');
+      if (!colorBlindnessSelected) {
+        alert("Please indicate whether you have color blindness (Yes or No).");
+        const colorOptions = document.querySelectorAll('input[name="colorBlindness"]');
+        colorOptions.forEach(opt => opt.classList.add("shake"));
+        setTimeout(() => colorOptions.forEach(opt => opt.classList.remove("shake")), 400);
+        return;
+      }
+
+
       if (!valid) {
         alert("Please fill in all required fields (marked with *)");
         if (firstInvalid) firstInvalid.focus();
@@ -210,19 +182,15 @@
 
       // Collect all data
       const demographicData = {
-        age: ageDropdown.value,
+        age: document.getElementById("age-input").value.trim(),
+        colorBlindness: document.querySelector('input[name="colorBlindness"]:checked').value,
         profession: document.getElementById("profession-input").value.trim(),
         domainFieldOfStudy: document.getElementById("domain-input").value.trim(),
         education: document.querySelector('input[name="education"]:checked').value,
         dataVizBackground: document.querySelector('input[name="data-viz-background"]:checked').value,
         mediaVisualizationExposure: document.querySelector('input[name="mediaVisualizationExposure"]:checked').value,
         mediaVisualizationHelpfulness: document.getElementById("mediaVisualizationHelpfulness").value,
-        chartFamiliarity: {
-          barCharts: document.getElementById("barCharts").value,
-          lineCharts: document.getElementById("lineCharts").value,
-          scatterplots: document.getElementById("scatterplots").value,
-          geographicalMaps: document.getElementById("geographicalMaps").value
-        }
+        lineChartFamiliarity: document.getElementById("lineCharts").value
       };
 
       // Save to localStorage
@@ -238,4 +206,5 @@
     });
   </script>
 </body>
+
 </html>
