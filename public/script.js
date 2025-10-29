@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 10;
+const TOTAL_CHARTS = 50;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
@@ -12,14 +12,14 @@ const steps = [];
 const ATTENTION_CHECKS = [
   {
     id: "attn1",
-    position: 3, 
+    position: 15,
     question: "Is this visualization a bar chart?",
     image: "attn1.png"
   },
   {
     id: "attn2",
-    position: 7,
-    question: "Attention check: Please select 'No' for this question.",
+    position: 35,
+    question: "Is this visualization a scatter plot?",
     image: "attn2.png"
   }
 ];
@@ -100,15 +100,15 @@ for (let i = 0; i < TOTAL_CHARTS; i++) {
           <img src="images/${chartId}_chart.png" alt="Chart ${chartId}" id="chart-img-${displayIndex}">
         </div>
         <div class="study-question">
-          <p><strong>Which pattern can you see the line chart?</strong></p>
+          <p><strong>What pattern can you see in the line chart?</strong></p>
           <div class="multiple-choice">
-            <label><input type="radio" name="q_${displayIndex}" value="upward" required> Upward</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="downward"> Downward</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="irregular"> Irregular</label><br>
+            <label><input type="radio" name="q_${displayIndex}" value="upward" required> Upward/Increasing</label><br>
+            <label><input type="radio" name="q_${displayIndex}" value="downward"> Downward/Decreasing</label><br>
+            <label><input type="radio" name="q_${displayIndex}" value="peak"> Peak/Spike</label><br>
+            <label><input type="radio" name="q_${displayIndex}" value="valley"> Valley/Drop</label><br>
             <label><input type="radio" name="q_${displayIndex}" value="periodic"> Periodic</label><br>
             <label><input type="radio" name="q_${displayIndex}" value="uniform"> Uniform</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="peak"> Peak</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="valley"> Valley</label><br>
+            <label><input type="radio" name="q_${displayIndex}" value="irregular"> Irregular</label><br>
             <label><input type="radio" name="q_${displayIndex}" value="Other"> Other</label>
             <input type="text" id="other_${displayIndex}" style="margin-left:20px; padding:4px;" placeholder="Specify if other">
           </div>
@@ -276,6 +276,24 @@ function submitData() {
   const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
   participantData.participantId = participantData.participantId || `participant_${Date.now()}`;
   participantData.completedAt = new Date().toISOString();
+
+  // Compute total session time
+  const startTime = parseInt(localStorage.getItem("studyStartTime"), 10);
+  const endTime = Date.now();
+  const totalSessionMs = endTime - startTime;
+  const totalSessionSeconds = Math.round(totalSessionMs / 1000);
+
+  // Get screen size
+  const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+  const screenHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  // Ensure demographic exists
+  if (!participantData.demographic) participantData.demographic = {};
+
+  // Add session metrics to demographic data
+  participantData.demographic.totalSessionSeconds = totalSessionSeconds;
+  participantData.demographic.screenSize = `${screenWidth}x${screenHeight}`;
+
 
   // Determine endpoint based on environment
   const endpoint =
