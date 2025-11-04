@@ -35,13 +35,10 @@ const participantData = JSON.parse(localStorage.getItem("participantData")) || {
 };
 
 // ==========================
-//  Randomize Chart Order
+//  Fixed Chart Order
 // ==========================
 const chartOrder = Array.from({ length: TOTAL_CHARTS }, (_, i) => i + 1);
-for (let i = chartOrder.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [chartOrder[i], chartOrder[j]] = [chartOrder[j], chartOrder[i]];
-}
+
 participantData.chartOrder = chartOrder;
 localStorage.setItem("participantData", JSON.stringify(participantData));
 
@@ -317,7 +314,7 @@ function submitData() {
           <div class="container">
             <div class="start-container">
               <h1>Thank You!</h1>
-              <p>Your responses have been submitted successfully.</p>
+              <p>Your responses have been submitted successfully. You have entered a chance to win the $50 raffle. If you won the raffle, we will directly contact via email. Thank you for your time!</p>
             </div>
           </div>
         `;
