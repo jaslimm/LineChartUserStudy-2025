@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 50;
+const TOTAL_CHARTS = 5;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
@@ -319,6 +319,7 @@ function submitData() {
           </div>
         `;
         localStorage.removeItem("participantData");
+        localStorage.removeItem("studyStartTime");
       } else {
         alert("Error submitting data. Please try again.");
       }
@@ -396,10 +397,8 @@ function updateProgress() {
 
 updateProgress();
 
-// store study start time if not already
-if (!localStorage.getItem("studyStartTime")) {
-  localStorage.setItem("studyStartTime", Date.now().toString());
-}
+// Always reset study start time when a new session begins
+localStorage.setItem("studyStartTime", Date.now().toString());
 
 // start first timer
 startTimer();

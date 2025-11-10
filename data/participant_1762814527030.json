@@ -1,0 +1,71 @@
+{
+  "participantId": "participant_1762814500445",
+  "demographic": {
+    "age": "20",
+    "colorBlindness": "No",
+    "profession": "4",
+    "domainFieldOfStudy": "sdfs",
+    "education": "College / Undergraduate (Some college; Associate’s degree; Bachelor’s degree)",
+    "dataVizBackground": "basic-training",
+    "mediaVisualizationExposure": "Once a day",
+    "mediaVisualizationHelpfulness": "3",
+    "lineChartFamiliarity": "3",
+    "totalSessionSeconds": 21,
+    "screenSize": "1536x730"
+  },
+  "responses": [
+    {
+      "displayIndex": 1,
+      "chartId": 1,
+      "choice": "valley",
+      "other": "",
+      "timestamp": "2025-11-10T22:41:48.367Z",
+      "responseTimeMs": 2674,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 2,
+      "chartId": 2,
+      "choice": "downward",
+      "other": "",
+      "timestamp": "2025-11-10T22:41:52.533Z",
+      "responseTimeMs": 3608,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 3,
+      "chartId": 3,
+      "choice": "irregular",
+      "other": "",
+      "timestamp": "2025-11-10T22:41:55.903Z",
+      "responseTimeMs": 2809,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 4,
+      "chartId": 4,
+      "choice": "upward",
+      "other": "",
+      "timestamp": "2025-11-10T22:42:02.309Z",
+      "responseTimeMs": 5850,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 5,
+      "chartId": 5,
+      "choice": "periodic",
+      "other": "",
+      "timestamp": "2025-11-10T22:42:06.462Z",
+      "responseTimeMs": 3586,
+      "method": "manual"
+    }
+  ],
+  "chartOrder": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "completedAt": "2025-11-10T22:42:07.025Z"
+}
