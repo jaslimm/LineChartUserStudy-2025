@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 5;
+const TOTAL_CHARTS = 50;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
