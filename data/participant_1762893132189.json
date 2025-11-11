@@ -1,0 +1,42 @@
+{
+  "participantId": "participant_1762893106137",
+  "demographic": {
+    "age": "21",
+    "colorBlindness": "No",
+    "profession": "d22",
+    "domainFieldOfStudy": "f",
+    "education": "College / Undergraduate (Some college; Associate’s degree; Bachelor’s degree)",
+    "dataVizBackground": "expert",
+    "mediaVisualizationExposure": "Multiple times a day",
+    "mediaVisualizationHelpfulness": "3",
+    "lineChartFamiliarity": "3",
+    "totalSessionSeconds": 9,
+    "screenSize": "1707x811",
+    "email": "jasmine@ou.edu"
+  },
+  "responses": [
+    {
+      "displayIndex": 1,
+      "chartId": 1,
+      "choice": "peak",
+      "other": "",
+      "timestamp": "2025-11-11T20:31:56.594Z",
+      "responseTimeMs": 4651,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 2,
+      "chartId": 2,
+      "choice": "uniform",
+      "other": "",
+      "timestamp": "2025-11-11T20:32:00.542Z",
+      "responseTimeMs": 3396,
+      "method": "manual"
+    }
+  ],
+  "chartOrder": [
+    1,
+    2
+  ],
+  "completedAt": "2025-11-11T20:32:01.096Z"
+}

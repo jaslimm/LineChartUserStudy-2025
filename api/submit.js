@@ -16,26 +16,56 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: "v4", auth });
     const data = req.body;
+    const participantId = data.participantId;
 
-    // flatten demographic + responses into a single row string for simplicity
+    // 1️⃣ Fetch current sheet data (participantId column assumed at B column)
+    const getResp = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: "Responses!A2:E" // adjust range as needed for your columns
+    });
+
+    const rows = getResp.data.values || [];
+    const idColIndex = 1; // Column B (A=0, B=1, etc.)
+    let existingRowIndex = -1;
+
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i][idColIndex] === participantId) {
+        existingRowIndex = i + 2; // +2 because header row + 1-based index
+        break;
+      }
+    }
+
+    // 2️⃣ Build the new row data
     const row = [
       new Date().toISOString(),
-      data.participantId || "",
+      participantId || "",
       JSON.stringify(data.chartOrder || []),
       JSON.stringify(data.responses || []),
       data.demographic ? JSON.stringify(data.demographic) : ""
     ];
 
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: sheetId,
-      range: "Responses!A1",
-      valueInputOption: "USER_ENTERED",
-      insertDataOption: "INSERT_ROWS",
-      requestBody: { values: [row] }
-    });
-
-    console.log("✅ Row added to Google Sheet");
-    res.status(200).json({ success: true });
+    if (existingRowIndex !== -1) {
+      // 3️⃣ Update existing row
+      await sheets.spreadsheets.values.update({
+        spreadsheetId: sheetId,
+        range: `Responses!A${existingRowIndex}:E${existingRowIndex}`,
+        valueInputOption: "USER_ENTERED",
+        requestBody: { values: [row] }
+      });
+      console.log(`✅ Updated existing participant ${participantId}`);
+      return res.status(200).json({ success: true, updated: true });
+    } else {
+      // 4️⃣ Append new row if not found
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: sheetId,
+        range: "Responses!A1",
+        valueInputOption: "USER_ENTERED",
+        insertDataOption: "INSERT_ROWS",
+        requestBody: { values: [row] }
+      });
+      console.log(`✅ Added new participant ${participantId}`);
+      return res.status(200).json({ success: true, created: true });
+    }
   } catch (err) {
     console.error("❌ Error adding to sheet:", err);
     res.status(500).json({ success: false, error: err.message });

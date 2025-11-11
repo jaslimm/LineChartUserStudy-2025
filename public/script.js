@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 50;
+const TOTAL_CHARTS = 2;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
@@ -291,15 +291,11 @@ function submitData() {
   participantData.demographic.totalSessionSeconds = totalSessionSeconds;
   participantData.demographic.screenSize = `${screenWidth}x${screenHeight}`;
 
-
-  // Determine endpoint based on environment
+  // Determine endpoint
   const endpoint =
     window.location.hostname === "localhost"
-      ? "/submit"        // Local Express server
-      : "/api/submit";   // Vercel serverless function
-
-  console.log("📤 Sending data to:", endpoint);
-  console.log("Data:", participantData);
+      ? "/submit"
+      : "/api/submit";
 
   fetch(endpoint, {
     method: "POST",
@@ -308,18 +304,61 @@ function submitData() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("✅ Server response:", data);
       if (data.success) {
+        // render thank-you WITH email box
         container.innerHTML = `
           <div class="container">
             <div class="start-container">
               <h1>Thank You!</h1>
-              <p>Your responses have been submitted successfully. You have entered a chance to win the $50 raffle. If you won the raffle, we will directly contact via email. Thank you for your time!</p>
+              <p>Your responses have been submitted successfully. You have entered a chance to win the $50 raffle.</p>
+              <p>Please enter your email so we can contact you if you win:</p>
+              <input type="email" id="raffle-email" placeholder="you@example.com" style="padding:8px; width:300px; margin:10px 0; border:2px solid #ddd; border-radius:6px;">
+              <br>
+              <button class="start-btn" id="save-email-btn">Submit Email</button>
             </div>
           </div>
         `;
-        localStorage.removeItem("participantData");
-        localStorage.removeItem("studyStartTime");
+
+        // keep the last participantData in memory so we can send email
+        const lastParticipant = participantData;
+
+        // attach handler
+        const btn = document.getElementById("save-email-btn");
+        btn.addEventListener("click", () => {
+          const emailInput = document.getElementById("raffle-email");
+          const emailVal = emailInput.value.trim();
+
+          if (!emailVal) {
+            emailInput.classList.add("shake");
+            setTimeout(() => emailInput.classList.remove("shake"), 400);
+            return;
+          }
+
+          // add email to demographic
+          if (!lastParticipant.demographic) lastParticipant.demographic = {};
+          lastParticipant.demographic.email = emailVal;
+
+          // send just the email update (you can hit same endpoint)
+          fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(lastParticipant)
+          }).then(() => {
+            // after we save email, clear local storage
+            localStorage.removeItem("participantData");
+            localStorage.removeItem("studyStartTime");
+            // optional: change message
+            container.innerHTML = `
+              <div class="container">
+                <div class="start-container">
+                  <h1>Thank You!</h1>
+                  <p>Your email has been recorded.</p>
+                  <p>You may now close this window.</p>
+                </div>
+              </div>
+            `;
+          });
+        });
       } else {
         alert("Error submitting data. Please try again.");
       }
