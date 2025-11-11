@@ -1,7 +1,7 @@
 // ==========================
 //  Experiment Configuration
 // ==========================
-const TOTAL_CHARTS = 2;
+const TOTAL_CHARTS = 50;
 const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
@@ -352,7 +352,7 @@ function submitData() {
               <div class="container">
                 <div class="start-container">
                   <h1>Thank You!</h1>
-                  <p>Your email has been recorded.</p>
+                  <p>Your email has been recorded. The responses you submitted in the user study will not be linked to your email.</p>
                   <p>You may now close this window.</p>
                 </div>
               </div>
