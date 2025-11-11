@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const auth = new google.auth.GoogleAuth({
       credentials: serviceAccount,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"]
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
     const sheets = google.sheets({ version: "v4", auth });
@@ -21,63 +21,60 @@ export default async function handler(req, res) {
     if (!participantId)
       return res.status(400).json({ success: false, message: "Missing participantId" });
 
-    // extract email if provided
+    // ✅ Extract email if available
     const email =
       data.demographic && data.demographic.email ? data.demographic.email : "";
 
-    // Build demographic JSON string (minus email, if you prefer)
-    const demographic = { ...data.demographic };
-    const demographicJson = JSON.stringify(demographic);
+    // ✅ Build demographic JSON string
+    const demographicJson = JSON.stringify(data.demographic || {});
 
-    // Flatten chart responses if you want to store one row per participant
-    const chartIdList = data.responses.map(r => r.chartId).join(", ");
-    const choiceList = data.responses.map(r => r.choice).join(", ");
+    // ✅ Responses as JSON string (exact array)
+    const responsesJson = JSON.stringify(data.responses || []);
 
-    // Build row in your 6-column format
+    // ✅ Construct row: Timestamp | Participant ID | Email | Responses | Demographic
     const rowValues = [
-      new Date().toISOString(), // A Timestamp
-      participantId,            // B Participant ID
-      email,                    // C Email
-      chartIdList,              // D Chart IDs
-      choiceList,               // E Choices
-      demographicJson           // F Demographic JSON
+      new Date().toISOString(), // A
+      participantId,            // B
+      email,                    // C
+      responsesJson,            // D
+      demographicJson,          // E
     ];
 
-    // === find existing participant ===
+    // === Check for existing participant ===
     const getResp = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: "Responses!A2:F"   // skip header
+      range: "Responses!A2:E", // five columns now
     });
 
     const rows = getResp.data.values || [];
-    const idColIndex = 1; // column B
-
+    const idColIndex = 1; // Column B = participant ID
     let existingRowIndex = -1;
+
     for (let i = 0; i < rows.length; i++) {
       if (rows[i][idColIndex] === participantId) {
-        existingRowIndex = i + 2; // +2 because header + 1-based index
+        existingRowIndex = i + 2; // +2 for header + 1-based
         break;
       }
     }
 
     if (existingRowIndex !== -1) {
-      // === update existing row ===
+      // ✅ Update existing participant
       await sheets.spreadsheets.values.update({
         spreadsheetId: sheetId,
-        range: `Responses!A${existingRowIndex}:F${existingRowIndex}`,
+        range: `Responses!A${existingRowIndex}:E${existingRowIndex}`,
         valueInputOption: "USER_ENTERED",
-        requestBody: { values: [rowValues] }
+        requestBody: { values: [rowValues] },
       });
       console.log(`✅ Updated participant ${participantId}`);
       return res.status(200).json({ success: true, updated: true });
     } else {
-      // === append new row ===
+      // ✅ Append new participant
       await sheets.spreadsheets.values.append({
         spreadsheetId: sheetId,
         range: "Responses!A1",
         valueInputOption: "USER_ENTERED",
         insertDataOption: "INSERT_ROWS",
-        requestBody: { values: [rowValues] }
+        requestBody: { values: [rowValues] },
       });
       console.log(`✅ Added new participant ${participantId}`);
       return res.status(200).json({ success: true, created: true });
