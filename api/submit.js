@@ -16,58 +16,74 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: "v4", auth });
     const data = req.body;
-    const participantId = data.participantId;
 
-    // 1️⃣ Fetch current sheet data (participantId column assumed at B column)
+    const participantId = data.participantId;
+    if (!participantId)
+      return res.status(400).json({ success: false, message: "Missing participantId" });
+
+    // extract email if provided
+    const email =
+      data.demographic && data.demographic.email ? data.demographic.email : "";
+
+    // Build demographic JSON string (minus email, if you prefer)
+    const demographic = { ...data.demographic };
+    const demographicJson = JSON.stringify(demographic);
+
+    // Flatten chart responses if you want to store one row per participant
+    const chartIdList = data.responses.map(r => r.chartId).join(", ");
+    const choiceList = data.responses.map(r => r.choice).join(", ");
+
+    // Build row in your 6-column format
+    const rowValues = [
+      new Date().toISOString(), // A Timestamp
+      participantId,            // B Participant ID
+      email,                    // C Email
+      chartIdList,              // D Chart IDs
+      choiceList,               // E Choices
+      demographicJson           // F Demographic JSON
+    ];
+
+    // === find existing participant ===
     const getResp = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: "Responses!A2:E" // adjust range as needed for your columns
+      range: "Responses!A2:F"   // skip header
     });
 
     const rows = getResp.data.values || [];
-    const idColIndex = 1; // Column B (A=0, B=1, etc.)
-    let existingRowIndex = -1;
+    const idColIndex = 1; // column B
 
+    let existingRowIndex = -1;
     for (let i = 0; i < rows.length; i++) {
       if (rows[i][idColIndex] === participantId) {
-        existingRowIndex = i + 2; // +2 because header row + 1-based index
+        existingRowIndex = i + 2; // +2 because header + 1-based index
         break;
       }
     }
 
-    // 2️⃣ Build the new row data
-    const row = [
-      new Date().toISOString(),
-      participantId || "",
-      JSON.stringify(data.chartOrder || []),
-      JSON.stringify(data.responses || []),
-      data.demographic ? JSON.stringify(data.demographic) : ""
-    ];
-
     if (existingRowIndex !== -1) {
-      // 3️⃣ Update existing row
+      // === update existing row ===
       await sheets.spreadsheets.values.update({
         spreadsheetId: sheetId,
-        range: `Responses!A${existingRowIndex}:E${existingRowIndex}`,
+        range: `Responses!A${existingRowIndex}:F${existingRowIndex}`,
         valueInputOption: "USER_ENTERED",
-        requestBody: { values: [row] }
+        requestBody: { values: [rowValues] }
       });
-      console.log(`✅ Updated existing participant ${participantId}`);
+      console.log(`✅ Updated participant ${participantId}`);
       return res.status(200).json({ success: true, updated: true });
     } else {
-      // 4️⃣ Append new row if not found
+      // === append new row ===
       await sheets.spreadsheets.values.append({
         spreadsheetId: sheetId,
         range: "Responses!A1",
         valueInputOption: "USER_ENTERED",
         insertDataOption: "INSERT_ROWS",
-        requestBody: { values: [row] }
+        requestBody: { values: [rowValues] }
       });
       console.log(`✅ Added new participant ${participantId}`);
       return res.status(200).json({ success: true, created: true });
     }
   } catch (err) {
-    console.error("❌ Error adding to sheet:", err);
+    console.error("❌ Error writing to sheet:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 }

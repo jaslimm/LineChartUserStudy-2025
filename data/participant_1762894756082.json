@@ -1,0 +1,41 @@
+{
+  "participantId": "participant_1762894742291",
+  "demographic": {
+    "age": "21",
+    "colorBlindness": "No",
+    "profession": "test1",
+    "domainFieldOfStudy": "test11",
+    "education": "Master’s Degree (MA, MS, MEng, MSW, etc.)",
+    "dataVizBackground": "moderate-exposure",
+    "mediaVisualizationExposure": "Once a week",
+    "mediaVisualizationHelpfulness": "3",
+    "lineChartFamiliarity": "3",
+    "totalSessionSeconds": 9,
+    "screenSize": "1707x811"
+  },
+  "responses": [
+    {
+      "displayIndex": 1,
+      "chartId": 1,
+      "choice": "periodic",
+      "other": "",
+      "timestamp": "2025-11-11T20:59:10.536Z",
+      "responseTimeMs": 3534,
+      "method": "manual"
+    },
+    {
+      "displayIndex": 2,
+      "chartId": 2,
+      "choice": "uniform",
+      "other": "",
+      "timestamp": "2025-11-11T20:59:15.452Z",
+      "responseTimeMs": 4348,
+      "method": "manual"
+    }
+  ],
+  "chartOrder": [
+    1,
+    2
+  ],
+  "completedAt": "2025-11-11T20:59:16.024Z"
+}
