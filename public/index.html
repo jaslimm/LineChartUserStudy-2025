@@ -67,7 +67,11 @@
     }
 
     const params = new URLSearchParams(window.location.search);
-    const isProlific = params.has("PROLIFIC_PID");
+    const prolificPid = params.get("PROLIFIC_PID");
+
+    if (prolificPid) {
+      localStorage.setItem("PROLIFIC_PID", prolificPid);
+    }
 
     const compensationEl = document.getElementById("compensation-text");
 

@@ -274,8 +274,7 @@ function redirectToProlific() {
 function submitData() {
   stopTimer();
   // Detect Prolific
-  const params = new URLSearchParams(window.location.search);
-  const prolificPid = params.get("PROLIFIC_PID");
+  const prolificPid = localStorage.getItem("PROLIFIC_PID");
   const isProlific = Boolean(prolificPid);
 
   // Load participant data from localStorage
@@ -411,6 +410,7 @@ function submitData() {
           }).then(() => {
             localStorage.removeItem("participantData");
             localStorage.removeItem("studyStartTime");
+            localStorage.removeItem("PROLIFIC_PID");
 
             if (isProlific) {
               redirectToProlific();
