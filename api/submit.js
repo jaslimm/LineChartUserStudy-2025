@@ -32,18 +32,24 @@ export default async function handler(req, res) {
     const responsesJson = JSON.stringify(data.responses || []);
 
     // ✅ Construct row: Timestamp | Participant ID | Email | Responses | Demographic
+    const recruitmentSource = data.recruitmentSource || "";
+    const prolificPid = data.prolificPid || "";
+
     const rowValues = [
-      new Date().toISOString(), // A
-      participantId,            // B
-      email,                    // C
-      responsesJson,            // D
-      demographicJson,          // E
+      new Date().toISOString(), // A Timestamp
+      participantId,            // B Participant ID
+      email,                    // C Email
+      recruitmentSource,        // D RecruitmentSource
+      prolificPid,              // E ProlificPID
+      responsesJson,            // F Responses
+      demographicJson,          // G Demographic
     ];
+
 
     // === Check for existing participant ===
     const getResp = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: "Responses!A2:E", // five columns now
+      range: "Responses!A2:G", // now 7 columns
     });
 
     const rows = getResp.data.values || [];
@@ -61,7 +67,7 @@ export default async function handler(req, res) {
       // ✅ Update existing participant
       await sheets.spreadsheets.values.update({
         spreadsheetId: sheetId,
-        range: `Responses!A${existingRowIndex}:E${existingRowIndex}`,
+        range: `Responses!A${existingRowIndex}:G${existingRowIndex}`,
         valueInputOption: "USER_ENTERED",
         requestBody: { values: [rowValues] },
       });

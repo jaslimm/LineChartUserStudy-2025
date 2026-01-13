@@ -266,12 +266,27 @@ function nextStep() {
   startTimer(); // restart timer for next question
 }
 
+function redirectToProlific() {
+  window.location.href =
+    "https://app.prolific.com/submissions/complete?cc=C1E0CZOP";
+}
+
 function submitData() {
   stopTimer();
+  // Detect Prolific
+  const params = new URLSearchParams(window.location.search);
+  const prolificPid = params.get("PROLIFIC_PID");
+  const isProlific = Boolean(prolificPid);
 
   // Load participant data from localStorage
   const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
-  participantData.participantId = participantData.participantId || `participant_${Date.now()}`;
+
+  // Attach recruitment metadata ONCE
+  participantData.prolificPid = participantData.prolificPid || prolificPid || null;
+  participantData.recruitmentSource = isProlific ? "prolific" : "direct";
+
+  participantData.participantId =
+    participantData.participantId || `participant_${Date.now()}`;
   participantData.completedAt = new Date().toISOString();
 
   // Compute total session time
@@ -310,14 +325,54 @@ function submitData() {
           <div class="container">
             <div class="start-container">
               <h1>Thank You!</h1>
-              <p>Your responses have been submitted successfully. You have entered a chance to win the $50 raffle.</p>
-              <p>Please enter your email so we can contact you if you win:</p>
-              <input type="email" id="raffle-email" placeholder="you@example.com" style="padding:8px; width:300px; margin:10px 0; border:2px solid #ddd; border-radius:6px;">
+
+              <p>Your responses have been submitted successfully.</p>
+
+              ${
+                isProlific
+                  ? `<p>
+                      If you are participating via Prolific, providing an email is optional
+                      and not required for compensation.
+                    </p>`
+                  : `<p>
+                      Please enter your email so we can contact you if you win the $50 raffle.
+                    </p>`
+              }
+
+              <input
+                type="email"
+                id="raffle-email"
+                placeholder="you@example.com"
+                style="padding:8px; width:300px; margin:10px 0; border:2px solid #ddd; border-radius:6px;"
+              />
+
               <br>
-              <button class="start-btn" id="save-email-btn">Submit Email</button>
+
+              <button class="start-btn" id="save-email-btn">
+                ${isProlific ? "Submit Email (optional)" : "Submit Email"}
+              </button>
+
+              ${
+                isProlific
+                  ? `<button class="start-btn" id="skip-email-btn" style="margin-left:10px;">
+                      Skip & return to Prolific
+                    </button>`
+                  : ""
+              }
             </div>
           </div>
         `;
+
+        if (isProlific) {
+        const skipBtn = document.getElementById("skip-email-btn");
+        if (skipBtn) {
+          skipBtn.addEventListener("click", () => {
+            localStorage.removeItem("participantData");
+            localStorage.removeItem("studyStartTime");
+            redirectToProlific();
+          });
+        }
+      }
 
         // keep the last participantData in memory so we can send email
         const lastParticipant = participantData;
@@ -325,14 +380,24 @@ function submitData() {
         // attach handler
         const btn = document.getElementById("save-email-btn");
         btn.addEventListener("click", () => {
+          btn.disabled = true;
           const emailInput = document.getElementById("raffle-email");
           const emailVal = emailInput.value.trim();
 
-          if (!emailVal) {
-            emailInput.classList.add("shake");
-            setTimeout(() => emailInput.classList.remove("shake"), 400);
-            return;
-          }
+        if (!emailVal && !isProlific) {
+          btn.disabled = false;
+          emailInput.classList.add("shake");
+          setTimeout(() => emailInput.classList.remove("shake"), 400);
+          return;
+        }
+
+        // If Prolific user submits with no email, just redirect
+        if (!emailVal && isProlific) {
+          localStorage.removeItem("participantData");
+          localStorage.removeItem("studyStartTime");
+          redirectToProlific();
+          return;
+        }
 
           // add email to demographic
           if (!lastParticipant.demographic) lastParticipant.demographic = {};
@@ -344,15 +409,19 @@ function submitData() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(lastParticipant)
           }).then(() => {
-            // after we save email, clear local storage
             localStorage.removeItem("participantData");
             localStorage.removeItem("studyStartTime");
-            // optional: change message
+
+            if (isProlific) {
+              redirectToProlific();
+              return;
+            }
+
             container.innerHTML = `
               <div class="container">
                 <div class="start-container">
                   <h1>Thank You!</h1>
-                  <p>Your email has been recorded. The responses you submitted in the user study will not be linked to your email.</p>
+                  <p>Your email has been recorded.</p>
                   <p>You may now close this window.</p>
                 </div>
               </div>
