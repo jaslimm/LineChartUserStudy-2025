@@ -2,7 +2,6 @@
 //  Experiment Configuration
 // ==========================
 const TOTAL_CHARTS = 50;
-const TOTAL_STEPS = TOTAL_CHARTS;
 const container = document.body;
 let currentStep = 0;
 const steps = [];
@@ -34,13 +33,21 @@ const participantData = JSON.parse(localStorage.getItem("participantData")) || {
   responses: []
 };
 
+// Set session start time once
+if (!participantData.sessionStartTime) {
+  participantData.sessionStartTime = Date.now();
+  localStorage.setItem("participantData", JSON.stringify(participantData));
+}
+
 // ==========================
 //  Fixed Chart Order
 // ==========================
 const chartOrder = Array.from({ length: TOTAL_CHARTS }, (_, i) => i + 1);
 
-participantData.chartOrder = chartOrder;
-localStorage.setItem("participantData", JSON.stringify(participantData));
+if (!participantData.chartOrder) {
+  participantData.chartOrder = chartOrder;
+  localStorage.setItem("participantData", JSON.stringify(participantData));
+}
 
 // ==========================
 //  Progress Elements
@@ -54,7 +61,7 @@ progressBarContainer.appendChild(progressBar);
 
 const questionCounter = document.createElement('div');
 questionCounter.id = "question-counter";
-questionCounter.textContent = `Question 1 of ${TOTAL_STEPS}`;
+questionCounter.textContent = `Question 1`;
 
 container.insertBefore(progressBarContainer, container.firstChild);
 container.insertBefore(questionCounter, container.children[1]);
@@ -76,89 +83,124 @@ const noiseMask = document.createElement("div");
 noiseMask.id = "noise-mask";
 document.body.appendChild(noiseMask);
 
+// ==========================
+//  Build Step Configuration
+// ==========================
+const stepsConfig = [];
+let displayIndex = 1;
 
-// ==========================
-//  Generate One Step per Chart
-// ==========================
 for (let i = 0; i < TOTAL_CHARTS; i++) {
   const chartId = chartOrder[i];
-  const displayIndex = i + 1;
 
-  // Create and append chart step
-  const step = document.createElement('section');
-  step.classList.add('step');
-  if (i === 0) step.classList.add('active');
-  step.dataset.attention = "false"; // default
+  // Chart step
+  stepsConfig.push({
+    type: "chart",
+    chartId,
+    displayIndex
+  });
 
-  step.innerHTML = `
-    <div class="start-container1">
-      <div class="study-container">
-        <div class="chart-container" id="chart-container-${displayIndex}">
-          <img src="images/${chartId}_chart.png" alt="Chart ${chartId}" id="chart-img-${displayIndex}">
-        </div>
-        <div class="study-question">
-          <p><strong>What pattern can you see in the line chart?</strong></p>
-          <div class="multiple-choice">
-            <label><input type="radio" name="q_${displayIndex}" value="upward" required> Upward/Increasing</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="downward"> Downward/Decreasing</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="peak"> Peak/Spike</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="valley"> Valley/Drop</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="periodic"> Periodic</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="uniform"> Uniform</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="irregular"> Irregular</label><br>
-            <label><input type="radio" name="q_${displayIndex}" value="Other"> Other</label>
-            <input type="text" id="other_${displayIndex}" style="margin-left:20px; padding:4px;" placeholder="Specify if other">
+  // Insert attention checks AFTER this chart
+  ATTENTION_CHECKS.forEach(attn => {
+    if (attn.position === displayIndex) {
+      stepsConfig.push({
+        type: "attention",
+        attentionId: attn.id,
+        question: attn.question,
+        image: attn.image,
+        displayIndex: displayIndex + 0.5
+      });
+    }
+  });
+
+  displayIndex++;
+}
+
+// ==========================
+//  Render Steps
+// ==========================
+stepsConfig.forEach((cfg, idx) => {
+  const step = document.createElement("section");
+  step.classList.add("step");
+  if (idx === 0) step.classList.add("active");
+
+  step.dataset.type = cfg.type;
+  step.dataset.displayIndex = cfg.displayIndex;
+
+  if (cfg.type === "chart") {
+    step.dataset.chartId = cfg.chartId;
+
+    step.innerHTML = `
+      <div class="start-container1">
+        <div class="study-container">
+          <div class="chart-container">
+            <img src="images/${cfg.chartId}_chart.png" alt="Chart ${cfg.chartId}">
           </div>
-        </div>
-      </div>
-    </div>
-    <button class="start-btn" onclick="manualNext()">Next</button>
-  `;
-  container.appendChild(step);
-  steps.push(step);
-  // ✅ Check if an attention check should follow this chart
-  const attn = ATTENTION_CHECKS.find(a => a.position === displayIndex);
-  if (attn) {
-    const attnStep = document.createElement('section');
-    attnStep.classList.add('step');
-    attnStep.dataset.attention = "true";
-    attnStep.innerHTML = `
-      <div class="study-container">
-        <div class="chart-container">
-          <img src="${attn.image}" alt="Attention Check">
-        </div>
-        <div class="study-question">
-          <p><strong>${attn.question}</strong></p>
-          <label><input type="radio" name="q_attn_${attn.id}" value="Yes"> Yes</label><br>
-          <label><input type="radio" name="q_attn_${attn.id}" value="No"> No</label><br>
+          <div class="study-question">
+            <p><strong>What pattern can you see in the line chart?</strong></p>
+            <div class="multiple-choice">
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="upward"> Upward/Increasing</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="downward"> Downward/Decreasing</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="peak"> Peak/Spike</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="valley"> Valley/Drop</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="periodic"> Periodic</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="uniform"> Uniform</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="irregular"> Irregular</label><br>
+              <label><input type="radio" name="q_${cfg.displayIndex}" value="Other"> Other</label>
+              <input type="text" id="other_${cfg.displayIndex}" style="display:none; margin-left:20px; padding:4px;">
+            </div>
+          </div>
         </div>
       </div>
       <button class="start-btn" onclick="manualNext()">Next</button>
     `;
-    steps.push(attnStep);
-    container.appendChild(attnStep);
   }
-}
 
-// Show/hide "Other" input when selected
+  if (cfg.type === "attention") {
+    step.dataset.attentionId = cfg.attentionId;
+
+    step.innerHTML = `
+      <div class="start-container1">
+        <div class="study-container">
+          <div class="chart-container">
+            <img src="${cfg.image}" alt="Attention Check">
+          </div>
+          <div class="study-question">
+            <p><strong>${cfg.question}</strong></p>
+            <label><input type="radio" name="attn_${cfg.attentionId}" value="Yes"> Yes</label><br>
+            <label><input type="radio" name="attn_${cfg.attentionId}" value="No"> No</label>
+          </div>
+        </div>
+      </div>
+      <button class="start-btn" onclick="manualNext()">Next</button>
+    `;
+  }
+
+  container.appendChild(step);
+  steps.push(step);
+});
+
+
+// Show/hide "Other" input for chart questions only
 document.addEventListener("change", (e) => {
-  // Check if the changed element is one of the radio buttons
-  if (e.target.matches('input[type="radio"]')) {
-    const name = e.target.name; // e.g., q_5
-    const displayIndex = name.split("_")[1];
-    const input = document.getElementById(`other_${displayIndex}`);
+  if (!e.target.matches('input[type="radio"]')) return;
 
-    if (!input) return;
+  const name = e.target.name;
 
-    // Show only when "Other" is selected; hide otherwise
-    if (e.target.value === "Other") {
-      input.style.display = "inline-block";
-    } else {
-      input.style.display = "none";
-      input.value = ""; // clear text if switching away
-    }
+  // Only apply to chart questions (q_#)
+  if (!name.startsWith("q_")) return;
+
+  const displayIndex = name.split("_")[1];
+  const input = document.getElementById(`other_${displayIndex}`);
+  if (!input) return;
+
+  if (e.target.value === "Other") {
+    input.style.display = "inline-block";
+  } else {
+    input.style.display = "none";
+    input.value = "";
   }
 });
+
 
 // ==========================
 //  Timer + Navigation Logic
@@ -169,14 +211,14 @@ let questionStartTime = null; // Tracks when the current question appeared
 
 function startTimer() {
   stopTimer();
-  questionStartTime = Date.now(); // record when the chart appeared
+  questionStartTime = Date.now();
   animateGlobalTimer();
 
   timer = setTimeout(() => {
-    saveChartResponse("auto"); // save as auto-advanced if time runs out
-    showNoiseMaskAndNext();
-  }, 15000); // 15 seconds per question
+    completeCurrentStep("auto");
+  }, 15000);
 }
+
 
 function animateGlobalTimer() {
   const bar = document.getElementById("global-timer-bar");
@@ -207,15 +249,16 @@ function animateGlobalTimer() {
 
 
 function stopTimer() {
-  clearTimeout(timer);
+  if (timer) {
+    clearTimeout(timer);
+    timer = null;
+  }
 }
 
 function manualNext() {
-  const displayIndex = currentStep + 1;
   const currentStepEl = steps[currentStep];
   const nextButton = currentStepEl.querySelector(".start-btn");
 
-  // Look for any checked radio input inside this step
   const selected = currentStepEl.querySelector('input[type="radio"]:checked');
   const otherInput = currentStepEl.querySelector('input[type="text"]');
 
@@ -231,10 +274,9 @@ function manualNext() {
     return;
   }
 
-  stopTimer();
-  saveChartResponse("manual");
-  showNoiseMaskAndNext();
+  completeCurrentStep("manual");
 }
+
 
 function showNoiseMaskAndNext() {
   const mask = document.getElementById("noise-mask");
@@ -252,6 +294,7 @@ function showNoiseMaskAndNext() {
 
 
 function nextStep() {
+  stopTimer();
   steps[currentStep].classList.remove('active');
   currentStep++;
 
@@ -273,15 +316,18 @@ function redirectToProlific() {
 
 function submitData() {
   stopTimer();
+
   // Detect Prolific
   const prolificPid = localStorage.getItem("PROLIFIC_PID");
   const isProlific = Boolean(prolificPid);
 
   // Load participant data from localStorage
-  const participantData = JSON.parse(localStorage.getItem("participantData")) || {};
+  const participantData =
+    JSON.parse(localStorage.getItem("participantData")) || {};
 
   // Attach recruitment metadata ONCE
-  participantData.prolificPid = participantData.prolificPid || prolificPid || null;
+  participantData.prolificPid =
+    participantData.prolificPid || prolificPid || null;
   participantData.recruitmentSource = isProlific ? "prolific" : "direct";
 
   participantData.participantId =
@@ -289,99 +335,101 @@ function submitData() {
   participantData.completedAt = new Date().toISOString();
 
   // Compute total session time
-  const startTime = parseInt(localStorage.getItem("studyStartTime"), 10);
+  const startTime = participantData.sessionStartTime;
   const endTime = Date.now();
-  const totalSessionMs = endTime - startTime;
-  const totalSessionSeconds = Math.round(totalSessionMs / 1000);
+  const totalSessionMs = startTime ? endTime - startTime : null;
+  const totalSessionSeconds =
+    totalSessionMs !== null ? Math.round(totalSessionMs / 1000) : null;
 
   // Get screen size
-  const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-  const screenHeight = window.innerHeight || document.documentElement.clientHeight;
+  const screenWidth =
+    window.innerWidth || document.documentElement.clientWidth;
+  const screenHeight =
+    window.innerHeight || document.documentElement.clientHeight;
 
   // Ensure demographic exists
   if (!participantData.demographic) participantData.demographic = {};
 
-  // Add session metrics to demographic data
+  // Add session metrics
   participantData.demographic.totalSessionSeconds = totalSessionSeconds;
   participantData.demographic.screenSize = `${screenWidth}x${screenHeight}`;
 
   // Determine endpoint
   const endpoint =
-    window.location.hostname === "localhost"
-      ? "/submit"
-      : "/api/submit";
+    window.location.hostname === "localhost" ? "/submit" : "/api/submit";
 
   fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(participantData)
   })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        // render thank-you WITH email box
-        container.innerHTML = `
-          <div class="container">
-            <div class="start-container">
-              <h1>Thank You!</h1>
+    .then(res => {
+      if (!res.ok) throw new Error("Initial submit failed");
+      return res.json();
+    })
+    .then(data => {
+      if (!data.success) return;
 
-              <p>Your responses have been submitted successfully.</p>
+      // Render thank-you + email UI
+      container.innerHTML = `
+        <div class="container">
+          <div class="start-container">
+            <h1>Thank You!</h1>
+            <p>Your responses have been submitted successfully.</p>
 
-              ${
-                isProlific
-                  ? `<p>
-                      If you are participating via Prolific, providing an email is optional
-                      and not required for compensation.
-                    </p>`
-                  : `<p>
-                      Please enter your email so we can contact you if you win the $50 raffle.
-                    </p>`
-              }
+            ${
+              isProlific
+                ? `<p>
+                    If you are participating via Prolific, providing an email is optional
+                    and not required for compensation.
+                  </p>`
+                : `<p>
+                    Please enter your email so we can contact you if you win the $50 raffle.
+                  </p>`
+            }
 
-              <input
-                type="email"
-                id="raffle-email"
-                placeholder="you@example.com"
-                style="padding:8px; width:300px; margin:10px 0; border:2px solid #ddd; border-radius:6px;"
-              />
+            <input
+              type="email"
+              id="raffle-email"
+              placeholder="you@example.com"
+              style="padding:8px; width:300px; margin:10px 0; border:2px solid #ddd; border-radius:6px;"
+            />
 
-              <br>
+            <br />
 
-              <button class="start-btn" id="save-email-btn">
-                ${isProlific ? "Submit Email (optional)" : "Submit Email"}
-              </button>
+            <button class="start-btn" id="save-email-btn">
+              ${isProlific ? "Submit Email (optional)" : "Submit Email"}
+            </button>
 
-              ${
-                isProlific
-                  ? `<button class="start-btn" id="skip-email-btn" style="margin-left:10px;">
-                      Skip & return to Prolific
-                    </button>`
-                  : ""
-              }
-            </div>
+            ${
+              isProlific
+                ? `<button class="start-btn" id="skip-email-btn" style="margin-left:10px;">
+                    Skip & return to Prolific
+                  </button>`
+                : ""
+            }
           </div>
-        `;
+        </div>
+      `;
 
-        if (isProlific) {
+      if (isProlific) {
         const skipBtn = document.getElementById("skip-email-btn");
         if (skipBtn) {
           skipBtn.addEventListener("click", () => {
             localStorage.removeItem("participantData");
-            localStorage.removeItem("studyStartTime");
             redirectToProlific();
           });
         }
       }
 
-        // keep the last participantData in memory so we can send email
-        const lastParticipant = participantData;
+      const lastParticipant = JSON.parse(JSON.stringify(participantData));
+      const btn = document.getElementById("save-email-btn");
 
-        // attach handler
-        const btn = document.getElementById("save-email-btn");
-        btn.addEventListener("click", () => {
-          btn.disabled = true;
-          const emailInput = document.getElementById("raffle-email");
-          const emailVal = emailInput.value.trim();
+      btn.addEventListener("click", () => {
+        btn.disabled = true;
+
+        const emailInput = document.getElementById("raffle-email");
+        const emailVal = emailInput.value.trim();
 
         if (!emailVal && !isProlific) {
           btn.disabled = false;
@@ -390,26 +438,29 @@ function submitData() {
           return;
         }
 
-        // If Prolific user submits with no email, just redirect
         if (!emailVal && isProlific) {
           localStorage.removeItem("participantData");
-          localStorage.removeItem("studyStartTime");
           redirectToProlific();
           return;
         }
 
-          // add email to demographic
-          if (!lastParticipant.demographic) lastParticipant.demographic = {};
-          lastParticipant.demographic.email = emailVal;
+        if (!lastParticipant.demographic)
+          lastParticipant.demographic = {};
+        lastParticipant.demographic.email = emailVal;
 
-          // send just the email update (you can hit same endpoint)
-          fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(lastParticipant)
-          }).then(() => {
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...lastParticipant,
+            updateOnly: true
+          })
+        })
+          .then(res => {
+            if (!res.ok) throw new Error("Email update failed");
+          })
+          .then(() => {
             localStorage.removeItem("participantData");
-            localStorage.removeItem("studyStartTime");
             localStorage.removeItem("PROLIFIC_PID");
 
             if (isProlific) {
@@ -426,62 +477,93 @@ function submitData() {
                 </div>
               </div>
             `;
+          })
+          .catch(err => {
+            console.error("❌ Email update failed:", err);
+            alert("There was a problem saving your email. Please try again.");
+            btn.disabled = false;
           });
-        });
-      } else {
-        alert("Error submitting data. Please try again.");
-      }
+      });
     })
-    .catch((err) => {
-      console.error("❌ Network error:", err);
-      alert("Network error. Please try again.");
+    .catch(err => {
+      console.error("❌ Initial submit failed:", err);
+      alert("There was a problem submitting your responses. Please try again.");
     });
 }
 
+function completeCurrentStep(method) {
+  stopTimer();
+  saveStepResponse(method);
+  showNoiseMaskAndNext();
+}
 
-// ==========================
-//  Response Handling
-// ==========================
-function saveChartResponse(method = "auto") {
-  const chartIndex = currentStep;
-  const chartId = chartOrder[chartIndex];
-  const displayIndex = chartIndex + 1;
 
-  const selected = document.querySelector(`input[name="q_${displayIndex}"]:checked`);
-  const otherText = document.getElementById(`other_${displayIndex}`)?.value.trim();
+function saveStepResponse(method = "auto") {
+  const stepEl = steps[currentStep];
 
+  if (stepEl.dataset.completed) return;
+  stepEl.dataset.completed = "true";
+  const stepType = stepEl.dataset.type;
   const endTime = Date.now();
   const responseTimeMs = questionStartTime ? endTime - questionStartTime : null;
 
-  // ✅ NEW LOGIC:
-  // If time runs out ("auto"), but a selection was already made,
-  // still record the selected option.
-  method = method === "auto" && selected ? "auto_with_selection" : method;
-  let choice;
-  let other = "";
+  let finalMethod = method;
 
-  if (selected) {
-    choice = selected.value;
-    if (selected.value === "Other") {
-      other = otherText || "";
+  let response = {
+    displayIndex: currentStep + 1,
+    timestamp: new Date().toISOString(),
+    responseTimeMs
+  };
+
+  // ==========================
+  // Chart response
+  // ==========================
+  if (stepType === "chart") {
+    const chartId = Number(stepEl.dataset.chartId);
+    const displayIndex = Number(stepEl.dataset.displayIndex);
+
+    const selected = stepEl.querySelector('input[type="radio"]:checked');
+    const otherInput = stepEl.querySelector('input[type="text"]');
+
+    if (finalMethod === "auto" && selected) {
+      finalMethod = "auto_with_selection";
     }
-  } else {
-    choice = method === "auto" ? "Not answered (auto)" : "Not answered";
+
+    response.chartId = chartId;
+    response.displayIndex = displayIndex;
+    response.method = finalMethod;
+
+    if (selected) {
+      response.choice = selected.value;
+      response.other =
+        selected.value === "Other" && otherInput
+          ? otherInput.value.trim()
+          : "";
+    } else {
+      response.choice =
+        finalMethod === "auto"
+          ? "Not answered (auto)"
+          : "Not answered";
+      response.other = "";
+    }
   }
 
-  const response = {
-    displayIndex,
-    chartId,
-    choice,
-    other,
-    timestamp: new Date().toISOString(),
-    responseTimeMs,
-    method // "manual" or "auto"
-  };
+  // ==========================
+  // Attention check response
+  // ==========================
+  else if (stepType === "attention") {
+    const attnId = stepEl.dataset.attentionId;
+    const selected = stepEl.querySelector('input[type="radio"]:checked');
+
+    response.attentionCheckId = attnId;
+    response.choice = selected ? selected.value : "Not answered";
+    response.method = finalMethod;
+  }
 
   participantData.responses.push(response);
   localStorage.setItem("participantData", JSON.stringify(participantData));
 }
+
 
 // ==========================
 //  Progress Update + Init
@@ -492,10 +574,9 @@ function updateProgress() {
 
   const completedRealCharts = steps
     .slice(0, currentStep + 1)
-    .filter(s => s.dataset.attention !== "true").length;
+    .filter(s => s.dataset.type === "chart").length;
 
   const totalRealCharts = TOTAL_CHARTS;
-
 
   const counter = document.getElementById('question-counter');
   if (counter) {
@@ -503,11 +584,14 @@ function updateProgress() {
   }
 }
 
+
 updateProgress();
 
-// Always reset study start time when a new session begins
-localStorage.setItem("studyStartTime", Date.now().toString());
+// Set study start time ONCE per session
+if (!participantData.sessionStartTime) {
+  participantData.sessionStartTime = Date.now();
+  localStorage.setItem("participantData", JSON.stringify(participantData));
+}
 
 // start first timer
 startTimer();
-

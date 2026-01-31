@@ -1,0 +1,542 @@
+{
+  "participantId": "participant_1769900907042",
+  "demographic": {
+    "age": "21",
+    "colorBlindness": "Yes",
+    "profession": "4",
+    "domainFieldOfStudy": "sdfs",
+    "education": "High school or below (Grades 9–12 without a diploma; High school graduate or equivalent)",
+    "dataVizBackground": "basic-training",
+    "mediaVisualizationExposure": "Few times a month",
+    "mediaVisualizationHelpfulness": "3",
+    "lineChartFamiliarity": "3",
+    "totalSessionSeconds": 197,
+    "screenSize": "1097x969",
+    "email": "johnappleseed@gmail.com"
+  },
+  "responses": [
+    {
+      "displayIndex": 1,
+      "timestamp": "2026-01-31T23:08:44.198Z",
+      "responseTimeMs": 15002,
+      "chartId": 1,
+      "method": "auto_with_selection",
+      "choice": "irregular",
+      "other": ""
+    },
+    {
+      "displayIndex": 2,
+      "timestamp": "2026-01-31T23:08:46.835Z",
+      "responseTimeMs": 2074,
+      "chartId": 2,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 3,
+      "timestamp": "2026-01-31T23:08:50.160Z",
+      "responseTimeMs": 2753,
+      "chartId": 3,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 4,
+      "timestamp": "2026-01-31T23:09:05.723Z",
+      "responseTimeMs": 15000,
+      "chartId": 4,
+      "method": "auto",
+      "choice": "Not answered (auto)",
+      "other": ""
+    },
+    {
+      "displayIndex": 5,
+      "timestamp": "2026-01-31T23:09:21.290Z",
+      "responseTimeMs": 15001,
+      "chartId": 5,
+      "method": "auto",
+      "choice": "Not answered (auto)",
+      "other": ""
+    },
+    {
+      "displayIndex": 6,
+      "timestamp": "2026-01-31T23:09:23.655Z",
+      "responseTimeMs": 1798,
+      "chartId": 6,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 7,
+      "timestamp": "2026-01-31T23:09:26.174Z",
+      "responseTimeMs": 1967,
+      "chartId": 7,
+      "method": "manual",
+      "choice": "downward",
+      "other": ""
+    },
+    {
+      "displayIndex": 8,
+      "timestamp": "2026-01-31T23:09:29.331Z",
+      "responseTimeMs": 2593,
+      "chartId": 8,
+      "method": "manual",
+      "choice": "upward",
+      "other": ""
+    },
+    {
+      "displayIndex": 9,
+      "timestamp": "2026-01-31T23:09:31.313Z",
+      "responseTimeMs": 1427,
+      "chartId": 9,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 10,
+      "timestamp": "2026-01-31T23:09:39.569Z",
+      "responseTimeMs": 7694,
+      "chartId": 10,
+      "method": "manual",
+      "choice": "Other",
+      "other": "well yes"
+    },
+    {
+      "displayIndex": 11,
+      "timestamp": "2026-01-31T23:09:55.128Z",
+      "responseTimeMs": 15004,
+      "chartId": 11,
+      "method": "auto_with_selection",
+      "choice": "Other",
+      "other": ""
+    },
+    {
+      "displayIndex": 12,
+      "timestamp": "2026-01-31T23:10:10.705Z",
+      "responseTimeMs": 15002,
+      "chartId": 12,
+      "method": "auto",
+      "choice": "Not answered (auto)",
+      "other": ""
+    },
+    {
+      "displayIndex": 13,
+      "timestamp": "2026-01-31T23:10:14.282Z",
+      "responseTimeMs": 3015,
+      "chartId": 13,
+      "method": "manual",
+      "choice": "periodic",
+      "other": ""
+    },
+    {
+      "displayIndex": 14,
+      "timestamp": "2026-01-31T23:10:16.541Z",
+      "responseTimeMs": 1705,
+      "chartId": 14,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 15,
+      "timestamp": "2026-01-31T23:10:22.085Z",
+      "responseTimeMs": 4983,
+      "chartId": 15,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 16,
+      "timestamp": "2026-01-31T23:10:30.557Z",
+      "responseTimeMs": 7921,
+      "attentionCheckId": "attn1",
+      "choice": "Yes",
+      "method": "manual"
+    },
+    {
+      "displayIndex": 16,
+      "timestamp": "2026-01-31T23:10:32.950Z",
+      "responseTimeMs": 1830,
+      "chartId": 16,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 17,
+      "timestamp": "2026-01-31T23:10:35.485Z",
+      "responseTimeMs": 1981,
+      "chartId": 17,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 18,
+      "timestamp": "2026-01-31T23:10:37.763Z",
+      "responseTimeMs": 1728,
+      "chartId": 18,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 19,
+      "timestamp": "2026-01-31T23:10:39.949Z",
+      "responseTimeMs": 1629,
+      "chartId": 19,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 20,
+      "timestamp": "2026-01-31T23:10:41.672Z",
+      "responseTimeMs": 1167,
+      "chartId": 20,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 21,
+      "timestamp": "2026-01-31T23:10:43.632Z",
+      "responseTimeMs": 1400,
+      "chartId": 21,
+      "method": "manual",
+      "choice": "downward",
+      "other": ""
+    },
+    {
+      "displayIndex": 22,
+      "timestamp": "2026-01-31T23:10:45.446Z",
+      "responseTimeMs": 1260,
+      "chartId": 22,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 23,
+      "timestamp": "2026-01-31T23:10:47.978Z",
+      "responseTimeMs": 1974,
+      "chartId": 23,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 24,
+      "timestamp": "2026-01-31T23:10:50.160Z",
+      "responseTimeMs": 1628,
+      "chartId": 24,
+      "method": "manual",
+      "choice": "periodic",
+      "other": ""
+    },
+    {
+      "displayIndex": 25,
+      "timestamp": "2026-01-31T23:10:52.275Z",
+      "responseTimeMs": 1560,
+      "chartId": 25,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 26,
+      "timestamp": "2026-01-31T23:10:54.082Z",
+      "responseTimeMs": 1250,
+      "chartId": 26,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 27,
+      "timestamp": "2026-01-31T23:10:55.732Z",
+      "responseTimeMs": 1084,
+      "chartId": 27,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 28,
+      "timestamp": "2026-01-31T23:10:58.004Z",
+      "responseTimeMs": 1710,
+      "chartId": 28,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 29,
+      "timestamp": "2026-01-31T23:11:00.032Z",
+      "responseTimeMs": 1470,
+      "chartId": 29,
+      "method": "manual",
+      "choice": "downward",
+      "other": ""
+    },
+    {
+      "displayIndex": 30,
+      "timestamp": "2026-01-31T23:11:02.016Z",
+      "responseTimeMs": 1432,
+      "chartId": 30,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 31,
+      "timestamp": "2026-01-31T23:11:04.258Z",
+      "responseTimeMs": 1687,
+      "chartId": 31,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 32,
+      "timestamp": "2026-01-31T23:11:06.238Z",
+      "responseTimeMs": 1409,
+      "chartId": 32,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 33,
+      "timestamp": "2026-01-31T23:11:07.989Z",
+      "responseTimeMs": 1197,
+      "chartId": 33,
+      "method": "manual",
+      "choice": "irregular",
+      "other": ""
+    },
+    {
+      "displayIndex": 34,
+      "timestamp": "2026-01-31T23:11:09.869Z",
+      "responseTimeMs": 1319,
+      "chartId": 34,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 35,
+      "timestamp": "2026-01-31T23:11:11.729Z",
+      "responseTimeMs": 1297,
+      "chartId": 35,
+      "method": "manual",
+      "choice": "periodic",
+      "other": ""
+    },
+    {
+      "displayIndex": 37,
+      "timestamp": "2026-01-31T23:11:14.923Z",
+      "responseTimeMs": 2639,
+      "attentionCheckId": "attn2",
+      "choice": "No",
+      "method": "manual"
+    },
+    {
+      "displayIndex": 36,
+      "timestamp": "2026-01-31T23:11:16.936Z",
+      "responseTimeMs": 1454,
+      "chartId": 36,
+      "method": "manual",
+      "choice": "downward",
+      "other": ""
+    },
+    {
+      "displayIndex": 37,
+      "timestamp": "2026-01-31T23:11:18.915Z",
+      "responseTimeMs": 1423,
+      "chartId": 37,
+      "method": "manual",
+      "choice": "upward",
+      "other": ""
+    },
+    {
+      "displayIndex": 38,
+      "timestamp": "2026-01-31T23:11:21.815Z",
+      "responseTimeMs": 2333,
+      "chartId": 38,
+      "method": "manual",
+      "choice": "downward",
+      "other": ""
+    },
+    {
+      "displayIndex": 39,
+      "timestamp": "2026-01-31T23:11:23.776Z",
+      "responseTimeMs": 1394,
+      "chartId": 39,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 40,
+      "timestamp": "2026-01-31T23:11:25.440Z",
+      "responseTimeMs": 1109,
+      "chartId": 40,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 41,
+      "timestamp": "2026-01-31T23:11:27.388Z",
+      "responseTimeMs": 1388,
+      "chartId": 41,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    },
+    {
+      "displayIndex": 42,
+      "timestamp": "2026-01-31T23:11:28.927Z",
+      "responseTimeMs": 980,
+      "chartId": 42,
+      "method": "manual",
+      "choice": "periodic",
+      "other": ""
+    },
+    {
+      "displayIndex": 43,
+      "timestamp": "2026-01-31T23:11:30.861Z",
+      "responseTimeMs": 1380,
+      "chartId": 43,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 44,
+      "timestamp": "2026-01-31T23:11:32.632Z",
+      "responseTimeMs": 1217,
+      "chartId": 44,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 45,
+      "timestamp": "2026-01-31T23:11:34.423Z",
+      "responseTimeMs": 1225,
+      "chartId": 45,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 46,
+      "timestamp": "2026-01-31T23:11:36.875Z",
+      "responseTimeMs": 1878,
+      "chartId": 46,
+      "method": "manual",
+      "choice": "peak",
+      "other": ""
+    },
+    {
+      "displayIndex": 47,
+      "timestamp": "2026-01-31T23:11:38.857Z",
+      "responseTimeMs": 1411,
+      "chartId": 47,
+      "method": "manual",
+      "choice": "periodic",
+      "other": ""
+    },
+    {
+      "displayIndex": 48,
+      "timestamp": "2026-01-31T23:11:40.459Z",
+      "responseTimeMs": 1046,
+      "chartId": 48,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 49,
+      "timestamp": "2026-01-31T23:11:42.336Z",
+      "responseTimeMs": 1321,
+      "chartId": 49,
+      "method": "manual",
+      "choice": "valley",
+      "other": ""
+    },
+    {
+      "displayIndex": 50,
+      "timestamp": "2026-01-31T23:11:45.217Z",
+      "responseTimeMs": 2318,
+      "chartId": 50,
+      "method": "manual",
+      "choice": "uniform",
+      "other": ""
+    }
+  ],
+  "sessionStartTime": 1769900909191,
+  "chartOrder": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50
+  ],
+  "prolificPid": null,
+  "recruitmentSource": "direct",
+  "completedAt": "2026-01-31T23:11:45.781Z",
+  "updateOnly": true
+}
