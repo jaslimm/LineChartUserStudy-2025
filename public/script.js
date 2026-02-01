@@ -510,7 +510,7 @@ function saveStepResponse(method = "auto") {
   let finalMethod = method;
 
   let response = {
-    displayIndex: currentStep + 1,
+    stepIndex: currentStep + 1,
     timestamp: new Date().toISOString(),
     responseTimeMs
   };
@@ -530,7 +530,7 @@ function saveStepResponse(method = "auto") {
     }
 
     response.chartId = chartId;
-    response.displayIndex = displayIndex;
+    response.displayIndex = Number(stepEl.dataset.displayIndex);
     response.method = finalMethod;
 
     if (selected) {
