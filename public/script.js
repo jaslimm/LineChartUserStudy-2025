@@ -494,6 +494,13 @@ function submitData() {
 function completeCurrentStep(method) {
   stopTimer();
   saveStepResponse(method);
+
+  // If this was the last step, submit immediately
+  if (currentStep === steps.length - 1) {
+    submitData();
+    return;
+  }
+
   showNoiseMaskAndNext();
 }
 
