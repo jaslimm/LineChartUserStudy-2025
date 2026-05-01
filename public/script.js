@@ -311,7 +311,7 @@ function nextStep() {
 
 function redirectToProlific() {
   window.location.href =
-    "https://app.prolific.com/submissions/complete?cc=C1E0CZOP";
+    "https://app.prolific.com/submissions/complete?cc=C17IY5E8";
 }
 
 function submitData() {
